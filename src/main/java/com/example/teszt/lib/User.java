@@ -1,9 +1,16 @@
 package com.example.teszt.lib;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.*;
 
 public class User implements ObservableList {
@@ -226,6 +233,32 @@ public class User implements ObservableList {
     }
 
     public String getName() {return full_name;
+    }
+
+    public static void delete(User user) throws Api_error {
+
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(Api.getApi().getApiBase() + "/users/" + user.getId()))
+                    .header("Authorization", "Bearer " + Authentication.getToken())
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() != 204) {
+                ObjectMapper mapper = new ObjectMapper();
+                HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
+                if (responseMap.containsKey("is_error")) {
+                    throw Api_error.from_json(responseMap);
+                }
+            }
+
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
 

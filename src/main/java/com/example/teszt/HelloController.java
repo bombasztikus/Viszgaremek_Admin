@@ -7,11 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -68,7 +64,7 @@ public class HelloController implements Initializable {
         user_edit.setOnAction(event -> openeditUserWindow());
 
     }
-
+    @FXML
     public void updatemeals(){
         try {
             Menu_table.getColumns().clear();
@@ -76,10 +72,10 @@ public class HelloController implements Initializable {
             List<Meal> meals = fetch_meals();
             load_meals(meals);
         } catch (Api_error e) {
-
+            showLoginError(e.error);
         }
     }
-
+    @FXML
     public void updateusers(){
         User_table.getColumns().clear();
         User_table.getItems().clear();
@@ -162,10 +158,24 @@ public class HelloController implements Initializable {
                 Meal.delete(selectedMeal);
                 Menu_table.getItems().remove(selectedMeal);
             } catch (Api_error e) {
-                System.out.println(e);
+                showLoginError(e.error);
             }
         }
     }
+
+    @FXML
+    private void deleteSelectedUser() {
+        User selectedUser = User_table.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                User.delete(selectedUser);
+                updateusers();
+            } catch (Api_error e) {
+                showLoginError(e.error);
+            }
+        }
+    }
+
 
     public void addMealToTable(Meal meal) {
         Menu_table.getItems().add(meal);
@@ -289,5 +299,14 @@ public class HelloController implements Initializable {
         for (Order order : orders) {
             Orders_table.getItems().add(order);
         }
+    }
+
+
+    private void showLoginError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Probléme de login");
+        alert.setHeaderText("Probleme");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
