@@ -13,19 +13,21 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
 
-public class Order extends Meal implements ObservableList {
+public class Order implements ObservableList {
     private Integer id;
     private Integer user_id;
     private String date_created;
     private String address;
     private Boolean is_completed;
+    private Boolean is_error;
 
-    public Order(Integer id, Integer user_id, String date_created, String address, Boolean is_completed) {
+    public Order(Integer id, Integer user_id, String date_created, String address, Boolean is_completed, Boolean is_error) {
         this.id = id;
         this.user_id = user_id;
         this.date_created = date_created;
         this.address = address;
         this.is_completed = is_completed;
+        this.is_error = is_error;
     }
 
     static public Order from_json(HashMap json) throws Api_error {
@@ -38,7 +40,9 @@ public class Order extends Meal implements ObservableList {
                 (Integer) json.get("user_id"),
                 (String) json.get("date_created"),
                 (String) json.get("address"),
-                (Boolean) json.get("is_completed")
+                (Boolean) json.get("is_completed"),
+                (Boolean) json.get("is_error")
+
         );
     }
 
@@ -249,5 +253,9 @@ public class Order extends Meal implements ObservableList {
         } catch (IOException | InterruptedException | URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean get_is_error() {
+        return is_error;
     }
 }

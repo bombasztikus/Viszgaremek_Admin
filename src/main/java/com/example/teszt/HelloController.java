@@ -2,6 +2,7 @@ package com.example.teszt;
 
 import com.example.teszt.lib.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,6 +37,9 @@ public class HelloController implements Initializable {
     private TableView<Order> Orders_table;
 
     @FXML
+    private TableView<Orderitem> Orderitem_table;
+
+    @FXML
     private Button add_button;
 
     @FXML
@@ -66,6 +70,16 @@ public class HelloController implements Initializable {
         user_edit.setOnAction(event -> openeditUserWindow());
         order_edit.setOnAction(event -> openEditOrderWindow());
 
+        Orders_table.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Order>() {
+            @Override
+            public void onChanged(Change<? extends Order> c) {
+                while (c.next()) {
+                    if (c.wasAdded()) {
+                        System.out.println("Selected Items: " + c.getList());
+                    }
+                }
+            }
+        });
     }
     @FXML
     public void updatemeals(){
@@ -107,7 +121,7 @@ public class HelloController implements Initializable {
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Add New Meal");
+            stage.setTitle("Adj hozzá új kaját");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -177,7 +191,7 @@ public class HelloController implements Initializable {
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Edit Order" + selectedOrder.getName());
+            stage.setTitle("Edit Order" + selectedOrder.getId());
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -347,6 +361,34 @@ public class HelloController implements Initializable {
         for (Order order : orders) {
             Orders_table.getItems().add(order);
         }
+    }
+
+    private List<Order> fetch_order_items() throws Api_error {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(Api.getApi().getApiBase()+"/orders"))
+                    .setHeader("Authorization", "Bearer " + Authentication.getToken())
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            ObjectMapper mapper = new ObjectMapper();
+            HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
+
+            OrdersResponse valasz = OrdersResponse.from_json(responseMap);
+
+            if (valasz != null && !valasz.is_error) {
+                return valasz.items;
+            }
+
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
     }
 
 

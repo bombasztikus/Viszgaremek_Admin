@@ -31,7 +31,7 @@ public class HelloApplication extends Application {
             stage.setScene(scene);
             stage.show();
         } else {
-            System.out.println("Login failed or canceled, application will not start.");
+            System.out.println("Nem sikerült bejelentkezni így az alkalmazás nem indult el!");
             System.exit(0);
         }
     }
@@ -55,8 +55,8 @@ public class HelloApplication extends Application {
         password.setPromptText("Password");
         email.setPromptText("Username");
 
-        Text l1 = new Text("Username:");
-        Text p1 = new Text("Password:");
+        Text l1 = new Text("Email:");
+        Text p1 = new Text("Jelszó:");
         Text a = new Text("API link: ");
 
         VBox popupLayout = new VBox(10);
@@ -83,15 +83,15 @@ public class HelloApplication extends Application {
 
         Scene popupScene = new Scene(popupLayout, 300, 250);
         popupStage.setScene(popupScene);
-        popupStage.setTitle("Login");
+        popupStage.setTitle("Bejelentkezés");
 
         popupStage.showAndWait();
     }
 
     private void showLoginError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Login Error");
-        alert.setHeaderText("Login Failed");
+        alert.setTitle("Bejelentkezési Hiba");
+        alert.setHeaderText("Bejelentkezés nem sikerült");
         alert.setContentText(message);
         alert.showAndWait();
     }

@@ -20,7 +20,7 @@
            <MenuItem mnemonicParsing="false" text="Delete" />
          </items>
        </Menu>
-       <Menu mnemonicParsing="false" text="Help">
+       <Menu mnemonicParsing="false" text="Segítség">
          <items>
            <MenuItem mnemonicParsing="false" text="About" />
          </items>
@@ -92,7 +92,7 @@
                            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                               <children>
                                  <TableView fx:id="Orders_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS" />
-                                 <TableView fx:id="Orders_table1" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS" />
+                                 <TableView fx:id="Order_items_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS" />
                               </children>
                            </VBox>
                            <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
@@ -100,6 +100,13 @@
                                  <Button mnemonicParsing="false" onAction="#deleteSelectedOrder" text="Delete" />
                                  <Button mnemonicParsing="false" onAction="#updateorders" text="Refresh" />
                                  <Button fx:id="order_edit" mnemonicParsing="false" text="Kálmán" />
+                                 <Button mnemonicParsing="false" text="Deleteó">
+                                    <VBox.margin>
+                                       <Insets top="150.0" />
+                                    </VBox.margin>
+                                 </Button>
+                                 <Button mnemonicParsing="false" text="Editke" />
+                                 <Button mnemonicParsing="false" text="Gimmme cock" />
                               </children>
                               <padding>
                                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
