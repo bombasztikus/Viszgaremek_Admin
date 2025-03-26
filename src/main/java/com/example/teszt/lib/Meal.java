@@ -314,12 +314,14 @@ public class Meal implements ObservableList {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            ObjectMapper mapper = new ObjectMapper();
-            HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
-
-            if (responseMap.containsKey("is_error")) {
-                throw Api_error.from_json(responseMap);
+            if (response.statusCode() != 204) {
+                ObjectMapper mapper = new ObjectMapper();
+                HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
+                if (responseMap.containsKey("is_error")) {
+                    throw Api_error.from_json(responseMap);
+                }
             }
+
         } catch (IOException | InterruptedException | URISyntaxException e) {
             e.printStackTrace();
         }

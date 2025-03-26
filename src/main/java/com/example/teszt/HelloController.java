@@ -42,6 +42,9 @@ public class HelloController implements Initializable {
     private Button add_button;
 
     @FXML
+    private Button edit_button;
+
+    @FXML
     private MenuBar menu;
 
     @FXML
@@ -63,6 +66,7 @@ public class HelloController implements Initializable {
         load_orders(orders);
 
         add_button.setOnAction(event -> openAddMealWindow());
+        edit_button.setOnAction(event -> openeditMealWindow());
 
     }
 
@@ -76,6 +80,27 @@ public class HelloController implements Initializable {
 
             Stage stage = new Stage();
             stage.setTitle("Add New Meal");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openeditMealWindow() {
+        Meal selectedMeal = Menu_table.getSelectionModel().getSelectedItem();
+        if (selectedMeal == null) {
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/EditMealWindow.fxml"));
+            Parent root = loader.load();
+
+            com.example.teszt.AddMealWindowController controller = loader.getController();
+            controller.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit " + selectedMeal.getName());
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
