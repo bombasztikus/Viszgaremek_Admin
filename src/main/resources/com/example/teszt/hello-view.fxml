@@ -97,9 +97,9 @@
                            </VBox>
                            <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
                               <children>
-                                 <Button mnemonicParsing="false" text="Toljad neki!" />
-                                 <Button mnemonicParsing="false" text="Delete" />
-                                 <Button mnemonicParsing="false" text="Refresh" />
+                                 <Button mnemonicParsing="false" onAction="#deleteSelectedOrder" text="Delete" />
+                                 <Button mnemonicParsing="false" onAction="#updateorders" text="Refresh" />
+                                 <Button fx:id="order_edit" mnemonicParsing="false" text="Kálmán" />
                               </children>
                               <padding>
                                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

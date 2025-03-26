@@ -13,7 +13,7 @@ public class OrdersResponse {
         this.is_error = is_error;
     }
 
-    static public OrdersResponse from_json(HashMap<String, Object> json) {
+    static public OrdersResponse from_json(HashMap<String, Object> json) throws Api_error {
         List<HashMap<String, Object>> items_raw = (List<HashMap<String, Object>>) json.get("items");
         List<Order> items = new ArrayList<>();
         if (items_raw != null) {

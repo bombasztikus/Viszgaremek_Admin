@@ -39,6 +39,9 @@ public class HelloController implements Initializable {
     private Button add_button;
 
     @FXML
+    private Button order_edit;
+
+    @FXML
     private Button edit_button;
 
     @FXML
@@ -56,12 +59,12 @@ public class HelloController implements Initializable {
 
         updateusers();
 
-        List<Order> orders = fetch_orders();
-        load_orders(orders);
+        updateorders();
 
         add_button.setOnAction(event -> openAddMealWindow());
         edit_button.setOnAction(event -> openeditMealWindow());
         user_edit.setOnAction(event -> openeditUserWindow());
+        order_edit.setOnAction(event -> openEditOrderWindow());
 
     }
     @FXML
@@ -81,6 +84,18 @@ public class HelloController implements Initializable {
         User_table.getItems().clear();
         List<User> users = fetch_users();
         load_users(users);
+    }
+
+    @FXML
+    public void updateorders(){
+        try {
+            Orders_table.getColumns().clear();
+            Orders_table.getItems().clear();
+            List<Order> orders = fetch_orders();
+            load_orders(orders);
+        } catch (Api_error e) {
+            showLoginError(e.error);
+        }
     }
 
     private void openAddMealWindow() {
@@ -148,7 +163,27 @@ public class HelloController implements Initializable {
         }
     }
 
+    private void openEditOrderWindow() {
+        Order selectedOrder = Orders_table.getSelectionModel().getSelectedItem();
+        if (selectedOrder == null) {
+            return;
+        }
+        EditOrderWindowController.setSelectedOrder(selectedOrder);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/EditOrderWindow.fxml"));
+            Parent root = loader.load();
 
+            com.example.teszt.EditOrderWindowController controller = loader.getController();
+            controller.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Order" + selectedOrder.getName());
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void deleteSelectedMeal() {
@@ -156,7 +191,7 @@ public class HelloController implements Initializable {
         if (selectedMeal != null) {
             try {
                 Meal.delete(selectedMeal);
-                Menu_table.getItems().remove(selectedMeal);
+                updatemeals();
             } catch (Api_error e) {
                 showLoginError(e.error);
             }
@@ -170,6 +205,19 @@ public class HelloController implements Initializable {
             try {
                 User.delete(selectedUser);
                 updateusers();
+            } catch (Api_error e) {
+                showLoginError(e.error);
+            }
+        }
+    }
+
+    @FXML
+    private void deleteSelectedOrder() {
+        Order selectedOrder = Orders_table.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null) {
+            try {
+                Order.delete(selectedOrder);
+                updateorders();
             } catch (Api_error e) {
                 showLoginError(e.error);
             }
@@ -261,7 +309,7 @@ public class HelloController implements Initializable {
         }
     }
 
-    private List<Order> fetch_orders() {
+    private List<Order> fetch_orders() throws Api_error {
         try {
             HttpClient client = HttpClient.newHttpClient();
 
