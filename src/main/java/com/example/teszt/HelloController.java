@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,6 +56,9 @@ public class HelloController implements Initializable {
     private TextField search;
 
     @FXML
+    private MenuItem about;
+
+    @FXML
     private Button user_edit;
 
     @Override
@@ -69,6 +73,7 @@ public class HelloController implements Initializable {
         edit_button.setOnAction(event -> openeditMealWindow());
         user_edit.setOnAction(event -> openeditUserWindow());
         order_edit.setOnAction(event -> openEditOrderWindow());
+        about.setOnAction(event -> aboutpage("Vizsgaremek"));
 
         Orders_table.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Order>() {
             @Override
@@ -397,6 +402,16 @@ public class HelloController implements Initializable {
         alert.setTitle("Probléme de login");
         alert.setHeaderText("Probleme");
         alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void aboutpage(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Ez a projekt a 2025-i vizsgaremek aw BKSZC Pogány Frigyes Technikumnak, " +
+                "Készítette: Halász Willhem Bendegúz, Kőszegi Tamás Attila, Simon Attila Tibor " +
+                "Github directory: https://github.com/bombasztikus/Vizsgaremek", ButtonType.OK);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setTitle("Rólunk");
+        alert.setHeaderText(message);
         alert.showAndWait();
     }
 }

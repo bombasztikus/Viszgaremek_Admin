@@ -22,7 +22,7 @@
        </Menu>
        <Menu mnemonicParsing="false" text="Segítség">
          <items>
-           <MenuItem mnemonicParsing="false" text="About" />
+           <MenuItem fx:id="about" mnemonicParsing="false" text="Rólunk" />
          </items>
        </Menu>
      </menus>
@@ -107,6 +107,7 @@
                                  </Button>
                                  <Button mnemonicParsing="false" text="Editke" />
                                  <Button mnemonicParsing="false" text="Gimmme cock" />
+                                 <Button mnemonicParsing="false" text="Refresh" />
                               </children>
                               <padding>
                                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
