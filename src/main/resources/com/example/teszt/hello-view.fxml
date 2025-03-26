@@ -92,7 +92,7 @@
                            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                               <children>
                                  <TableView fx:id="Orders_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS" />
-                                 <TableView fx:id="Order_items_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS" />
+                                 <TableView fx:id="Orderitem_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS" />
                               </children>
                            </VBox>
                            <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">

@@ -61,6 +61,9 @@ public class HelloController implements Initializable {
     @FXML
     private Button user_edit;
 
+    List<Orderitem> selected_orderitems = new ArrayList<>();
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updatemeals();
@@ -80,7 +83,16 @@ public class HelloController implements Initializable {
             public void onChanged(Change<? extends Order> c) {
                 while (c.next()) {
                     if (c.wasAdded()) {
-                        System.out.println("Selected Items: " + c.getList());
+                        try {
+                            selected_orderitems = fetch_order_items(Orders_table.getSelectionModel().getSelectedItem().getId());
+                            if (Orderitem_table != null) {
+                                Orderitem_table.getColumns().clear();
+                                Orderitem_table.getItems().clear();
+                                load_order_items(selected_orderitems);
+                            }
+                        } catch (Api_error e) {
+                            showLoginError(e.error);
+                        }
                     }
                 }
             }
@@ -368,12 +380,12 @@ public class HelloController implements Initializable {
         }
     }
 
-    private List<Order> fetch_order_items() throws Api_error {
+    private List<Orderitem> fetch_order_items(int order_id) throws Api_error {
         try {
             HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(Api.getApi().getApiBase()+"/orders"))
+                    .uri(new URI(Api.getApi().getApiBase()+"/orders/" + order_id + "/items"))
                     .setHeader("Authorization", "Bearer " + Authentication.getToken())
                     .GET()
                     .build();
@@ -383,7 +395,7 @@ public class HelloController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
 
-            OrdersResponse valasz = OrdersResponse.from_json(responseMap);
+            OrderItemsResponse valasz = OrderItemsResponse.from_json(responseMap);
 
             if (valasz != null && !valasz.is_error) {
                 return valasz.items;
@@ -396,6 +408,17 @@ public class HelloController implements Initializable {
         return new ArrayList<>();
     }
 
+    private void load_order_items(List<Orderitem> order_items) {
+        for (String key : Orderitem.getTableColums().keySet()) {
+            TableColumn<Orderitem, ?> column = new TableColumn<>(Orderitem.getTableColums().get(key));
+            column.setCellValueFactory(new PropertyValueFactory<>(key));
+            Orderitem_table.getColumns().add(column);
+        }
+
+        for (Orderitem order_item : order_items) {
+            Orderitem_table.getItems().add(order_item);
+        }
+    }
 
     private void showLoginError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
