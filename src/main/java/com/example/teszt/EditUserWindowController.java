@@ -1,15 +1,10 @@
 package com.example.teszt;
 
-import com.example.teszt.lib.Api_error;
-import com.example.teszt.lib.Meal;
-import com.example.teszt.lib.MealRequest;
-import com.example.teszt.lib.MealType;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.example.teszt.lib.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -22,33 +17,24 @@ public class EditUserWindowController implements Initializable {
     private TextField nameField;
 
     @FXML
-    private ChoiceBox<String> typeField;
+    private CheckBox workercheck;
 
     @FXML
-    private TextField caloriesField;
+    private TextField emailField;
 
     @FXML
     private Button add_meal;
 
-    @FXML
-    private TextField descriptionField;
-
-    @FXML
-    private TextField priceField;
-
-    @FXML
-    private TextField imageField;
-
     private HelloController mainController;
 
-    private static Meal selectedMeal;
+    private static User selectedUser;
 
-    public static void setSelectedMeal(Meal selectedMeal) {
-        EditUserWindowController.selectedMeal = selectedMeal;
+    public static void setSelectedUser(User selectedUser) {
+        EditUserWindowController.selectedUser = selectedUser;
     }
 
-    public static Meal getSelectedMeal() {
-        return selectedMeal;
+    public static User getSelectedUser() {
+        return selectedUser;
     }
 
     public void setMainController(HelloController mainController) {
@@ -57,18 +43,16 @@ public class EditUserWindowController implements Initializable {
 
     @FXML
     private void handleEditMeal() {
-        String name = nameField.getText();
-        MealType type = Meal.string_to_mealtype(typeField.getValue());
-        Integer calories = Integer.parseInt(caloriesField.getText());
-        String description = descriptionField.getText();
-        Integer price = Integer.parseInt(priceField.getText());
-        String image_url = imageField.getText();
+        String full_name = nameField.getText();
+        String email = emailField.getText();
+        Boolean worker = getSelectedUser().getId() == 1 ? true : workercheck.isSelected();
 
         //if (!name.isEmpty() && )
-        MealRequest request = new MealRequest(name, price, calories,image_url, description, type);
+        UserRequest request = new UserRequest(full_name, email, worker);
         try {
-            Meal newMeal = request.mealadd();
-            mainController.addMealToTable(newMeal);
+            User newUser = request.useredit(selectedUser.getId());
+            mainController.updateusers();
+            System.out.println(newUser);
         } catch (Api_error e) {
             System.out.println(e);
         }
@@ -79,33 +63,11 @@ public class EditUserWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (selectedMeal != null) {
-            nameField.setText(selectedMeal.getName());
-            typeField.setValue(selectedMeal.getType().toString());
-            caloriesField.setText(String.valueOf(selectedMeal.getCalories()));
-            priceField.setText(String.valueOf(selectedMeal.getPrice()));
-            imageField.setText(selectedMeal.getImage_url());
-            descriptionField.setText(selectedMeal.getDescription());
+        if (selectedUser != null) {
+            nameField.setText(selectedUser.getName());
+            emailField.setText(selectedUser.getEmail());
+            workercheck.setSelected(selectedUser.getIs_employee());
+            workercheck.setDisable(selectedUser.getId() == 1);
         }
-
-        priceField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    priceField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-
-        caloriesField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    caloriesField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
     }
 }

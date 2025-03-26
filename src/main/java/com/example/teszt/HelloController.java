@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
 public class HelloController implements Initializable {
 
     @FXML
@@ -50,24 +51,40 @@ public class HelloController implements Initializable {
     @FXML
     private TextField search;
 
+    @FXML
+    private Button user_edit;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            List<Meal> meals = fetch_meals();
-            load_meals(meals);
-        } catch (Api_error e) {
+        updatemeals();
 
-        }
-
-        List<User> users = fetch_users();
-        load_users(users);
+        updateusers();
 
         List<Order> orders = fetch_orders();
         load_orders(orders);
 
         add_button.setOnAction(event -> openAddMealWindow());
         edit_button.setOnAction(event -> openeditMealWindow());
+        user_edit.setOnAction(event -> openeditUserWindow());
 
+    }
+
+    public void updatemeals(){
+        try {
+            Menu_table.getColumns().clear();
+            Menu_table.getItems().clear();
+            List<Meal> meals = fetch_meals();
+            load_meals(meals);
+        } catch (Api_error e) {
+
+        }
+    }
+
+    public void updateusers(){
+        User_table.getColumns().clear();
+        User_table.getItems().clear();
+        List<User> users = fetch_users();
+        load_users(users);
     }
 
     private void openAddMealWindow() {
@@ -110,6 +127,32 @@ public class HelloController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    private void openeditUserWindow() {
+        User selectedUser = User_table.getSelectionModel().getSelectedItem();
+        if (selectedUser == null) {
+            return;
+        }
+
+        EditUserWindowController.setSelectedUser(selectedUser);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/EditUserWindow.fxml"));
+            Parent root = loader.load();
+
+            com.example.teszt.EditUserWindowController controller = loader.getController();
+            controller.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit " + selectedUser.getName());
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @FXML
     private void deleteSelectedMeal() {

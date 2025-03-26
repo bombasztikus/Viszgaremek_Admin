@@ -39,6 +39,19 @@ public class MealRequest {
 
         return json;
     }
+    public HashMap<String, Object> toJSONedit(){
+        HashMap<String, Object> json = new HashMap<>();
+
+        json.put("name", name);
+        json.put("price", price);
+        json.put("calories", calories);
+        json.put("image_url", image_url);
+        json.put("description", description);
+        json.put("type", type.toString());
+
+        return json;
+    }
+
 
     public Meal mealadd() throws Api_error {
 
@@ -55,6 +68,42 @@ public class MealRequest {
                     .header("Content-Type", "application/json")
                     .header("Authorization","Bearer " +  Authentication.getToken())
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            ObjectMapper mapper = new ObjectMapper();
+            HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
+            Meal valasz = Meal.from_json(responseMap);
+
+            if (valasz != null && !valasz.get_is_error()) {
+                return valasz;
+            }
+
+            return valasz;
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public Meal mealedit(int id) throws Api_error {
+
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String requestBody = objectMapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(toJSONedit());
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(Api.getApi().getApiBase()+"/meals/" + id))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization","Bearer " +  Authentication.getToken())
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

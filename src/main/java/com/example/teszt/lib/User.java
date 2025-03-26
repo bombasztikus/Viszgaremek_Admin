@@ -224,5 +224,8 @@ public class User implements ObservableList {
     public void removeListener(InvalidationListener invalidationListener) {
 
     }
+
+    public String getName() {return full_name;
+    }
 }
 
