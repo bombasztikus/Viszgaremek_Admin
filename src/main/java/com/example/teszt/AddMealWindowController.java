@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -58,9 +59,9 @@ public class AddMealWindowController implements Initializable {
         MealRequest request = new MealRequest(name, price, calories,image_url, description, type);
         try {
             Meal newMeal = request.mealadd();
-            mainController.addMealToTable(newMeal);
+            mainController.updatemeals();
         } catch (Api_error e) {
-            System.out.println(e);
+            showLoginError(e.error);
         }
 
         Stage stage = (Stage) nameField.getScene().getWindow();
@@ -88,5 +89,13 @@ public class AddMealWindowController implements Initializable {
                 }
             }
         });
+    }
+
+    private void showLoginError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Zaba probléma");
+        alert.setHeaderText("Zaba gond");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
