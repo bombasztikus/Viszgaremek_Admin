@@ -27,7 +27,7 @@
     <TextField fx:id="descriptionField" promptText="Szöveg" GridPane.columnIndex="1" GridPane.rowIndex="3" />
     <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
     <TextField fx:id="priceField" promptText="Szám" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-    <Button fx:id="add_meal" defaultButton="true" onAction="#handleAddMeal" text="Add Meal" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    <Button fx:id="add_meal" defaultButton="true" text="Add Meal" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    <Label text="Image Url:" GridPane.rowIndex="5" />
    <TextField fx:id="imageField" promptText="Szöveg" GridPane.columnIndex="1" GridPane.rowIndex="5" />
     <columnConstraints>

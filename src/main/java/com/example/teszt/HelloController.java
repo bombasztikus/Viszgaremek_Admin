@@ -92,11 +92,14 @@ public class HelloController implements Initializable {
         if (selectedMeal == null) {
             return;
         }
+
+        EditMealWindowController.setSelectedMeal(selectedMeal);
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/EditMealWindow.fxml"));
             Parent root = loader.load();
 
-            com.example.teszt.AddMealWindowController controller = loader.getController();
+            com.example.teszt.EditMealWindowController controller = loader.getController();
             controller.setMainController(this);
 
             Stage stage = new Stage();
