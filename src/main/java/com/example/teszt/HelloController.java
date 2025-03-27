@@ -83,16 +83,7 @@ public class HelloController implements Initializable {
             public void onChanged(Change<? extends Order> c) {
                 while (c.next()) {
                     if (c.wasAdded()) {
-                        try {
-                            selected_orderitems = fetch_order_items(Orders_table.getSelectionModel().getSelectedItem().getId());
-                            if (Orderitem_table != null) {
-                                Orderitem_table.getColumns().clear();
-                                Orderitem_table.getItems().clear();
-                                load_order_items(selected_orderitems);
-                            }
-                        } catch (Api_error e) {
-                            showLoginError(e.error);
-                        }
+                        updateorderitems();
                     }
                 }
             }
@@ -122,8 +113,28 @@ public class HelloController implements Initializable {
         try {
             Orders_table.getColumns().clear();
             Orders_table.getItems().clear();
+            Orderitem_table.getColumns().clear();
+            Orderitem_table.getItems().clear();
             List<Order> orders = fetch_orders();
             load_orders(orders);
+        } catch (Api_error e) {
+            showLoginError(e.error);
+        }
+    }
+
+    public void updateorderitems() {
+        try {
+            if (Orders_table.getSelectionModel().getSelectedItem() == null) {
+                return;
+            }
+
+            selected_orderitems = fetch_order_items(Orders_table.getSelectionModel().getSelectedItem().getId());
+
+            if (Orderitem_table != null) {
+                Orderitem_table.getColumns().clear();
+                Orderitem_table.getItems().clear();
+                load_order_items(selected_orderitems);
+            }
         } catch (Api_error e) {
             showLoginError(e.error);
         }
@@ -249,6 +260,20 @@ public class HelloController implements Initializable {
             try {
                 Order.delete(selectedOrder);
                 updateorders();
+                updateorderitems();
+            } catch (Api_error e) {
+                showLoginError(e.error);
+            }
+        }
+    }
+
+    @FXML
+    private void deleteSelectedOrderItem() {
+        Orderitem selectedOrder = Orderitem_table.getSelectionModel().getSelectedItem();
+        if (selectedOrder != null) {
+            try {
+                Orderitem.delete(selectedOrder);
+                updateorderitems();
             } catch (Api_error e) {
                 showLoginError(e.error);
             }
@@ -391,7 +416,6 @@ public class HelloController implements Initializable {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
             ObjectMapper mapper = new ObjectMapper();
             HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
 

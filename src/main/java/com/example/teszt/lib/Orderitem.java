@@ -1,5 +1,13 @@
 package com.example.teszt.lib;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 
 public class Orderitem {
@@ -13,6 +21,33 @@ public class Orderitem {
         this.order_id = order_id;
         this.quantity = quantity;
         this.meal = meal;
+    }
+
+
+    public static void delete(Orderitem orderitem) throws Api_error {
+
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(Api.getApi().getApiBase() + "/orders/" + orderitem.order_id + "/items/" + orderitem.meal_id))
+                    .header("Authorization", "Bearer " + Authentication.getToken())
+                    .DELETE()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() != 204) {
+                ObjectMapper mapper = new ObjectMapper();
+                HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
+                if (responseMap.containsKey("is_error")) {
+                    throw Api_error.from_json(responseMap);
+                }
+            }
+
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getMeal_id() {

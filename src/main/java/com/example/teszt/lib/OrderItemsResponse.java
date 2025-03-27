@@ -20,6 +20,10 @@ public class OrderItemsResponse {
     }
 
     static public OrderItemsResponse from_json(HashMap<String, Object> json) throws Api_error {
+        if (json.containsKey("is_error") && (Boolean) json.get("is_error")) {
+            throw Api_error.from_json(json);
+        }
+
         List<HashMap<String, Object>> items_raw = (List<HashMap<String, Object>>) json.get("items");
         List<Orderitem> items = new ArrayList<>();
         if (items_raw != null) {
