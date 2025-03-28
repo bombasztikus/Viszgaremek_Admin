@@ -64,7 +64,7 @@ public class HelloApplication extends Application {
         popupLayout.getChildren().addAll(l1, email, p1, password, a, api, b);
 
         b.setOnAction(e -> {
-            LoginRequest adatok = new LoginRequest(email.getText(), password.getText());
+            LoginRequest adatok = new LoginRequest(email.getText(), password.getText() );
             backend.setApiBase(api.getText());
             try {
                 Authentication.signIn(adatok);
@@ -73,8 +73,13 @@ public class HelloApplication extends Application {
 
             }
 
-            if (Authentication.isLoggedIn() && Authentication.getIsAdmin()) {
-                popupStage.close();
+            if (Authentication.isLoggedIn()) {
+                if (Authentication.getIsAdmin()) {
+                    popupStage.close();
+                } else {
+                    showLoginError("Nem vagy Admin");
+                    Authentication.signOut();
+                }
             }
         });
 

@@ -98,4 +98,7 @@ public class Authentication {
 
         return false;
     }
+    public static void signOut() {
+        Authentication.instance = null;
+    }
 }
