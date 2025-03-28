@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane prefHeight="138.0" prefWidth="227.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.EditOrderItemsWindowController">
+    <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
+    <Label text="Darab:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField fx:id="quantityField" promptText="Szám" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Button fx:id="add_meal" defaultButton="true" onAction="#handleEditOrderItems" text="Szerkesztés" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

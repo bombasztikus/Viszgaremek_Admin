@@ -50,6 +50,9 @@ public class HelloController implements Initializable {
     private Button edit_button;
 
     @FXML
+    private Button orderitem_edit;
+
+    @FXML
     private MenuBar menu;
 
     @FXML
@@ -76,6 +79,7 @@ public class HelloController implements Initializable {
         edit_button.setOnAction(event -> openeditMealWindow());
         user_edit.setOnAction(event -> openeditUserWindow());
         order_edit.setOnAction(event -> openEditOrderWindow());
+        orderitem_edit.setOnAction(event -> openEditOrderitemWindow());
         about.setOnAction(event -> aboutpage("Vizsgaremek"));
 
         Orders_table.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Order>() {
@@ -220,6 +224,28 @@ public class HelloController implements Initializable {
 
             Stage stage = new Stage();
             stage.setTitle("Edit Order" + selectedOrder.getId());
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openEditOrderitemWindow() {
+        Orderitem selectedOrder = Orderitem_table.getSelectionModel().getSelectedItem();
+        if (selectedOrder == null) {
+            return;
+        }
+        EditOrderItemsWindowController.setSelectedOrder(selectedOrder);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/EditOrderItemsWindow.fxml"));
+            Parent root = loader.load();
+
+            com.example.teszt.EditOrderItemsWindowController controller = loader.getController();
+            controller.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Order" + selectedOrder.getQuantity());
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -419,7 +445,7 @@ public class HelloController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
 
-            OrderItemsResponse valasz = OrderItemsResponse.from_json(responseMap);
+            OrderItemResponse valasz = OrderItemResponse.from_json(responseMap);
 
             if (valasz != null && !valasz.is_error) {
                 return valasz.items;

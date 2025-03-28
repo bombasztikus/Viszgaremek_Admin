@@ -97,7 +97,7 @@
                                        <Insets top="150.0" />
                                     </VBox.margin>
                                  </Button>
-                                 <Button mnemonicParsing="false" text="Szerkesztés" />
+                                 <Button fx:id="orderitem_edit" mnemonicParsing="false" text="Szerkesztés" />
                                  <Button mnemonicParsing="false" text="Hozzáadás" />
                               </children>
                               <padding>

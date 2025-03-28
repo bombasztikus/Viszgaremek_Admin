@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class Orderitem {
     private Integer meal_id;
     private Integer order_id;
-    private Integer quantity;
+    public Integer quantity;
     private Meal meal;
 
     public Orderitem(Integer meal_id, Integer order_id, Integer quantity, Meal meal) {
@@ -88,6 +88,14 @@ public class Orderitem {
         );
     }
 
+    public static HashMap<String, Integer> toeditJSON(int quantity) {
+        HashMap<String, Integer> json = new HashMap<>();
+
+        json.put("quantity", quantity);
+
+        return json;
+    }
+
     public static HashMap<String, String> getTableColums() {
         HashMap<String, String> columns = new HashMap<>();
 
@@ -98,5 +106,13 @@ public class Orderitem {
         columns.put("total_price", "Összesen fizetendő");
 
         return columns;
+    }
+
+    public boolean get_is_error() {
+        return is_error();
+    }
+
+    private boolean is_error() {
+        return is_error();
     }
 }
