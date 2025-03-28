@@ -44,8 +44,8 @@ public class EditOrderItemsWindowController implements Initializable {
 
         OrderItemRequest request = new OrderItemRequest(quantity);
         try {
-            Orderitem editOrder = request.orderitemedit(getSelectedOrderItems().getMeal().getId());
-            mainController.updateorders();
+            Orderitem editOrder = request.orderitemedit(selectedOrderItems.order_id, selectedOrderItems.meal_id);
+            mainController.updateorderitems();
         } catch (Api_error e) {
             showLoginError(e.error);
         }

@@ -26,7 +26,7 @@ public class OrderItemRequest {
         return json;
     }
 
-    public Orderitem orderitemedit(int order_id, int meal_id, int quantity) throws Api_error {
+    public Orderitem orderitemedit(int order_id, int meal_id) throws Api_error {
 
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -47,13 +47,10 @@ public class OrderItemRequest {
 
             ObjectMapper mapper = new ObjectMapper();
             HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
-            Orderitem valasz = Orderitem.from_json(responseMap);
 
-            if (valasz != null && !valasz.get_is_error()) {
-                return valasz;
+            if (responseMap.containsKey("is_error") && (Boolean) responseMap.get("is_error")) {
+                throw Api_error.from_json(responseMap);
             }
-
-            return valasz;
         } catch (IOException | InterruptedException | URISyntaxException e) {
             e.printStackTrace();
         }

@@ -11,8 +11,8 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 
 public class Orderitem {
-    private Integer meal_id;
-    private Integer order_id;
+    public Integer meal_id;
+    public Integer order_id;
     public Integer quantity;
     private Meal meal;
 
@@ -86,14 +86,6 @@ public class Orderitem {
                 (Integer) json.get("quantity"),
                 Meal.from_json((HashMap) json.get("meal"))
         );
-    }
-
-    public static HashMap<String, Integer> toeditJSON(int quantity) {
-        HashMap<String, Integer> json = new HashMap<>();
-
-        json.put("quantity", quantity);
-
-        return json;
     }
 
     public static HashMap<String, String> getTableColums() {
