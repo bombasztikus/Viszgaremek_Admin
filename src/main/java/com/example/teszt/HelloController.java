@@ -81,7 +81,6 @@ public class HelloController implements Initializable {
         user_edit.setOnAction(event -> openeditUserWindow());
         order_edit.setOnAction(event -> openEditOrderWindow());
         orderitem_edit.setOnAction(event -> openEditOrderitemWindow());
-        about.setOnAction(event -> aboutpage("Vizsgaremek"));
 
         Orders_table.getSelectionModel().getSelectedItems().addListener(new ListChangeListener<Order>() {
             @Override

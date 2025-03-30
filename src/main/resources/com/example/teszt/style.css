@@ -125,3 +125,34 @@
 .tab#usersTab:selected .tab-label {
     -fx-graphic: url("images/users-icon-light.png");
 }
+
+.tab#infoTab .tab-label {
+    -fx-graphic: url("images/info-icon-dark.png");
+}
+
+.tab#infoTab:selected .tab-label {
+    -fx-graphic: url("images/info-icon-light.png");
+}
+
+.content-wrapper {
+    -fx-padding: 8px 16px 16px 16px;
+}
+
+.label, .hyperlink {
+    -fx-font-size: 14px;
+}
+
+.label {
+    fx-text-fill: #212529bf;
+}
+
+.hyperlink {
+    -fx-padding: 0;
+    -fx-text-fill: #2473ff;
+}
+
+.label.heading {
+    -fx-font-size: 26px;
+    -fx-text-fill: black;
+    -fx-font-weight: 700;
+}

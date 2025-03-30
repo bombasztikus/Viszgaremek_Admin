@@ -3,9 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
@@ -14,28 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1200.0" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.HelloController">
-   <MenuBar fx:id="menu" maxHeight="1.7976931348623157E308">
-     <menus>
-       <Menu mnemonicParsing="false" text="Edit">
-         <items>
-           <MenuItem mnemonicParsing="false" text="Delete" />
-         </items>
-       </Menu>
-       <Menu mnemonicParsing="false" text="Segítség">
-         <items>
-           <MenuItem fx:id="about" mnemonicParsing="false" text="Rólunk" />
-         </items>
-       </Menu>
-     </menus>
-      <VBox.margin>
-         <Insets />
-      </VBox.margin>
-   </MenuBar>
    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
      <tabs>
        <Tab id="productsTab" closable="false" text="TERMÉKEK">
          <content>
-           <AnchorPane>
+           <AnchorPane styleClass="content-wrapper">
                   <children>
                      <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
@@ -50,10 +30,10 @@
                            </VBox>
                            <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
                               <children>
-                                  <Button fx:id="add_button" mnemonicParsing="false" text="Hozzáadás" />
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedMeal" text="Törlés" />
-                                 <Button fx:id="edit_button" mnemonicParsing="false" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#updatemeals" text="Refresh" />
+                                  <Button fx:id="add_button" mnemonicParsing="false" styleClass="btn-primary" text="Hozzáadás" />
+                                 <Button mnemonicParsing="false" onAction="#deleteSelectedMeal" styleClass="btn-primary" text="Törlés" />
+                                 <Button fx:id="edit_button" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                 <Button mnemonicParsing="false" onAction="#updatemeals" styleClass="btn-primary" text="Refresh" />
                               </children>
                               <padding>
                                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -67,7 +47,7 @@
        </Tab>
          <Tab id="ordersTab" closable="false" text="RENDELÉSEK">
            <content>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="content-wrapper">
                   <children>
                      <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
@@ -87,16 +67,16 @@
                            </VBox>
                            <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
                               <children>
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedOrder" text="Törlés" />
-                                 <Button mnemonicParsing="false" onAction="#updateorders" text="Refresh" />
-                                 <Button fx:id="order_edit" mnemonicParsing="false" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedOrderItem" text="Törlés">
+                                 <Button mnemonicParsing="false" onAction="#deleteSelectedOrder" styleClass="btn-primary" text="Törlés" />
+                                 <Button mnemonicParsing="false" onAction="#updateorders" styleClass="btn-primary" text="Refresh" />
+                                 <Button fx:id="order_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                 <Button mnemonicParsing="false" onAction="#deleteSelectedOrderItem" styleClass="btn-primary" text="Törlés">
                                     <VBox.margin>
                                        <Insets top="150.0" />
                                     </VBox.margin>
                                  </Button>
-                                 <Button fx:id="orderitem_edit" mnemonicParsing="false" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#addOrderItem" text="Hozzáadás" />
+                                 <Button fx:id="orderitem_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                 <Button mnemonicParsing="false" onAction="#addOrderItem" styleClass="btn-primary" text="Hozzáadás" />
                               </children>
                               <padding>
                                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -110,7 +90,7 @@
          </Tab>
        <Tab id="usersTab" closable="false" text="FELHASZNÁLÓK">
             <content>
-               <AnchorPane>
+               <AnchorPane styleClass="content-wrapper">
                   <children>
                      <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
@@ -121,9 +101,9 @@
                            </TableView>
                            <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
                               <children>
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedUser" text="Törlés" />
-                                 <Button fx:id="user_edit" mnemonicParsing="false" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#updateusers" text="Refresh" />
+                                 <Button mnemonicParsing="false" onAction="#deleteSelectedUser" styleClass="btn-primary" text="Törlés" />
+                                 <Button fx:id="user_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                 <Button mnemonicParsing="false" onAction="#updateusers" styleClass="btn-primary" text="Refresh" />
                               </children>
                               <padding>
                                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -135,6 +115,35 @@
                </AnchorPane>
             </content>
        </Tab>
+         <Tab id="infoTab" text="NÉVJEGY">
+           <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="content-wrapper">
+                  <children>
+                     <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="18.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                           <VBox VBox.vgrow="NEVER">
+                              <children>
+                                 <Label styleClass="heading" text="Erről az alkalamzásról" VBox.vgrow="ALWAYS" />
+                                 <Label text="Ez az alkalmazás a 2025-ös &quot;Éttermi Rendelő Rendszer&quot; c. szakmai vizsgaremekünk részét képezi." />
+                                 <Label text="A forráskód megtekinthető GitHub-on, a  https://github.com/creppzguy/Viszgaremek_Admin címen." />
+                                 <Label text="A projekthez tartozó webes felület elérhető a https://vizsgaremek.halaszbendeguz.hu oldalon." />
+                              </children>
+                           </VBox>
+                           <VBox>
+                              <children>
+                                 <Label styleClass="heading" text="Csapat" />
+                                 <Label text="Készítették:" />
+                                 <Label text="- Kőszegi Tamás Attila (fejlesztés)" />
+                                 <Label text="- Simon Attila Tibor (fejlesztés, tervezés)" />
+                                 <Label text="- Halász Wilhelm Bendegúz (tervezés, dizájn)" />
+                              </children>
+                           </VBox>
+                        </children>
+                     </VBox>
+                  </children>
+               </AnchorPane>
+           </content>
+         </Tab>
      </tabs>
    </TabPane>
 </VBox>
