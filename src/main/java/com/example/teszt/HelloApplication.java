@@ -7,6 +7,7 @@ import com.example.teszt.lib.LoginRequest;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -22,7 +23,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        showCustomPopUp();
+        showLoginWindow();
 
         if (Authentication.isLoggedIn() && Authentication.getIsAdmin()) {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -36,61 +37,20 @@ public class HelloApplication extends Application {
         }
     }
 
-    private void showCustomPopUp() {
-        Stage popupStage = new Stage();
-        popupStage.initModality(Modality.WINDOW_MODAL);
+    private void showLoginWindow() {
+        try {
+             FXMLLoader loginWindowLoader = new FXMLLoader(HelloApplication.class.getResource("/com/example/teszt/LoginWindow.fxml"));
+             Parent root = loginWindowLoader.load();
 
-        TextField email = new TextField();
-        PasswordField password = new PasswordField();
-
-        Api backend = Api.getApi();
-
-        TextField api = new TextField(backend.getApiBase());
-        Button b = new Button("Login");
-
-        email.setMaxWidth(150);
-        password.setMaxWidth(150);
-        api.setMaxWidth(150);
-
-        password.setPromptText("Password");
-        email.setPromptText("Username");
-
-        Text l1 = new Text("Email:");
-        Text p1 = new Text("Jelszó:");
-        Text a = new Text("API link: ");
-
-        VBox popupLayout = new VBox(10);
-        popupLayout.setAlignment(Pos.CENTER);
-        popupLayout.getChildren().addAll(l1, email, p1, password, a, api, b);
-
-        b.setOnAction(e -> {
-            LoginRequest adatok = new LoginRequest(email.getText(), password.getText() );
-            backend.setApiBase(api.getText());
-            try {
-                Authentication.signIn(adatok);
-            } catch (Api_error ex) {
-                showLoginError(ex.error);
-
-            }
-
-            if (Authentication.isLoggedIn()) {
-                if (Authentication.getIsAdmin()) {
-                    popupStage.close();
-                } else {
-                    showLoginError("Nem vagy Admin");
-                    Authentication.signOut();
-                }
-            }
-        });
-
-        email.setOnAction(e -> b.fire());
-        password.setOnAction(e -> b.fire());
-
-        Scene popupScene = new Scene(popupLayout, 300, 250);
-        popupStage.setScene(popupScene);
-        popupStage.setTitle("Bejelentkezés");
-
-        popupStage.showAndWait();
+             Stage stage = new Stage();
+             stage.setResizable(false);
+             stage.initModality(Modality.WINDOW_MODAL);
+             stage.setTitle("Bejelentkezés");
+             stage.setScene(new Scene(root));
+             stage.showAndWait();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void showLoginError(String message) {

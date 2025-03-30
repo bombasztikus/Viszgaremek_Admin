@@ -1,0 +1,66 @@
+.root {
+    -fx-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.login-window {
+    -fx-background-color: white;
+}
+
+.login-form-header {
+    -fx-background-color: linear-gradient(to bottom, #212529, #000000);
+    -fx-padding: 16px;
+}
+
+.login-form-header-text {
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-font-weight: 100;
+}
+
+.form-label {
+    -fx-font-weight: 700;
+    -fx-font-size: 16px;
+}
+
+.text-field {
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 6px 12px 6px 12px;
+    -fx-font-size: 16px;
+    -fx-indent: 0;
+    -fx-text-fill: rgb(33, 37, 41);
+    -fx-text-box-border: transparent;
+    -fx-background-color: transparent;
+}
+
+.text-field:focused {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.text-field:focused.invalid,
+.text-field.invalid {
+    -fx-border-color: #dc3545 !important;
+}
+
+.btn-primary {
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-font-weight: 700;
+    -fx-font-size: 16px;
+    -fx-background-color: #212529;
+    -fx-border-width: 0;
+    -fx-border-radius: 800px;
+    -fx-background-radius: 800px;
+}
+
+.btn-primary:disabled {
+    -fx-opacity: 0.65;
+}
+
+.label-required {
+    -fx-text-fill: #dc3545;
+    -fx-font-weight: 400;
+    -fx-font-size: 14px;
+}

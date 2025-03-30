@@ -4,6 +4,7 @@ module com.example.teszt {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires java.scripting;
 
 
     opens com.example.teszt.lib to javafx.base;

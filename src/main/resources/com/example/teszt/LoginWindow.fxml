@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" styleClass="login-window" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.LoginWindowController">
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="8.0" styleClass="login-form-header" VBox.vgrow="NEVER">
+         <children>
+            <ImageView fitHeight="56.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+               <image>
+                  <Image url="@images/login-header.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" styleClass="login-form-header-text" text="Bejelentkezés" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" spacing="16.0" VBox.vgrow="NEVER">
+         <children>
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label styleClass="form-label" stylesheets="@style.css" text="EMAIL CÍM" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="emailField" prefWidth="368.0" promptText="valaki@pelda.hu" />
+                  <Label fx:id="emailRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label styleClass="form-label" stylesheets="@style.css" text="JELSZÓ" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passwordField" prefWidth="368.0" promptText="Jelszó" />
+                  <Label fx:id="passwordRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="8.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label styleClass="form-label" stylesheets="@style.css" text="BACKEND URL" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="backendField" prefWidth="368.0" promptText="Backend URL" />
+                  <Label fx:id="backendRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
+               </children>
+            </VBox>
+            <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogin" styleClass="btn-primary" text="BEJELENTKEZEK" VBox.vgrow="ALWAYS" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>
