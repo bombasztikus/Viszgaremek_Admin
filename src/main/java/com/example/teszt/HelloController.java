@@ -2,6 +2,7 @@ package com.example.teszt;
 
 import com.example.teszt.lib.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,16 +55,22 @@ public class HelloController implements Initializable {
     private Button orderitem_edit;
 
     @FXML
-    private MenuBar menu;
-
-    @FXML
-    private TextField search;
-
-    @FXML
-    private MenuItem about;
-
-    @FXML
     private Button user_edit;
+
+    @FXML
+    private Button delete_meal;
+
+    @FXML
+    private Button order_delete;
+
+    @FXML
+    private Button orderitem_delete;
+
+    @FXML
+    private Button orderitem_add;
+
+    @FXML
+    private Button user_delete;
 
     List<Orderitem> selected_orderitems = new ArrayList<>();
 
@@ -97,6 +104,25 @@ public class HelloController implements Initializable {
         configureTable(User_table);
         configureTable(Orders_table);
         configureTable(Orderitem_table);
+
+        delete_meal.disableProperty().bind(Menu_table.selectionModelProperty().get().selectedItemProperty().isNull());
+        edit_button.disableProperty().bind(Menu_table.selectionModelProperty().get().selectedItemProperty().isNull());
+
+        order_edit.disableProperty().bind(Orders_table.selectionModelProperty().get().selectedItemProperty().isNull());
+        order_delete.disableProperty().bind(Orders_table.selectionModelProperty().get().selectedItemProperty().isNull());
+
+        orderitem_edit.disableProperty().bind(Bindings.or(
+                Orders_table.selectionModelProperty().get().selectedItemProperty().isNull(),
+                Orderitem_table.selectionModelProperty().get().selectedItemProperty().isNull()
+        ));
+        orderitem_delete.disableProperty().bind(Bindings.or(
+                Orders_table.selectionModelProperty().get().selectedItemProperty().isNull(),
+                Orderitem_table.selectionModelProperty().get().selectedItemProperty().isNull()
+        ));
+        orderitem_add.disableProperty().bind(Orders_table.selectionModelProperty().get().selectedItemProperty().isNull());
+
+        user_edit.disableProperty().bind(User_table.selectionModelProperty().get().selectedItemProperty().isNull());
+        user_delete.disableProperty().bind(User_table.selectionModelProperty().get().selectedItemProperty().isNull());
     }
 
     private void configureTable(TableView<?> table) {

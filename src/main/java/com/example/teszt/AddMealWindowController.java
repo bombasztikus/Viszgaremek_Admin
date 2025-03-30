@@ -6,6 +6,7 @@ import com.example.teszt.lib.MealRequest;
 import com.example.teszt.lib.MealType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +25,7 @@ public class AddMealWindowController implements Initializable {
     private TextField nameField;
 
     @FXML
-    private ChoiceBox<String> typeField;
+    private ChoiceBox<MealType> typeField;
 
     @FXML
     private TextField caloriesField;
@@ -49,7 +51,7 @@ public class AddMealWindowController implements Initializable {
     @FXML
     private void handleAddMeal() {
         String name = nameField.getText();
-        MealType type = Meal.string_to_mealtype(typeField.getValue());
+        MealType type = typeField.getValue();
         Integer calories = Integer.parseInt(caloriesField.getText());
         String description = descriptionField.getText();
         Integer price = Integer.parseInt(priceField.getText());
@@ -87,6 +89,32 @@ public class AddMealWindowController implements Initializable {
                 if (!newValue.matches("\\d*")) {
                     caloriesField.setText(newValue.replaceAll("[^\\d]", ""));
                 }
+            }
+        });
+
+        typeField.setItems(FXCollections.observableArrayList(MealType.values())); // Ensure MealType is used, not Strings
+
+        typeField.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(MealType mealType) {
+                if (mealType == null) return "";
+                return switch (mealType) {
+                    case FOOD -> "Étel";
+                    case BEVERAGE -> "Ital";
+                    case MENU -> "Menü";
+                    case DESSERT -> "Desszert";
+                };
+            }
+
+            @Override
+            public MealType fromString(String string) {
+                return switch (string) {
+                    case "Étel" -> MealType.FOOD;
+                    case "Ital" -> MealType.BEVERAGE;
+                    case "Menü" -> MealType.MENU;
+                    case "Desszert" -> MealType.DESSERT;
+                    default -> null; // This case is unlikely to be used
+                };
             }
         });
     }

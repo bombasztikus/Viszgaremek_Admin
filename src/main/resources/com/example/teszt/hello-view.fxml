@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -17,30 +16,32 @@
          <content>
            <AnchorPane styleClass="content-wrapper">
                   <children>
-                     <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <VBox alignment="CENTER" spacing="16.0" styleClass="content-wrapper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="30.0" VBox.vgrow="NEVER">
                               <children>
-                                  <TableView fx:id="Menu_table" VBox.vgrow="ALWAYS">
-                                      <placeholder>
-                                          <Label text="Nincsenek megjeleníthető elemek..." />
-                                      </placeholder>
-                                  </TableView>
+                                 <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                       <Label styleClass="form-label" text="TERMÉK-MŰVELETEK" />
+                                       <HBox fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
+                                          <children>
+                                             <Button mnemonicParsing="false" onAction="#updatemeals" styleClass="btn-primary" text="Újratöltés" />
+                                             <Button fx:id="delete_meal" mnemonicParsing="false" onAction="#deleteSelectedMeal" styleClass="btn-primary" text="Törlés" />
+                                             <Button fx:id="edit_button" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                              <Button fx:id="add_button" mnemonicParsing="false" styleClass="btn-primary" text="Új Termék" />
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
                               </children>
-                           </VBox>
-                           <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
-                              <children>
-                                  <Button fx:id="add_button" mnemonicParsing="false" styleClass="btn-primary" text="Hozzáadás" />
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedMeal" styleClass="btn-primary" text="Törlés" />
-                                 <Button fx:id="edit_button" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#updatemeals" styleClass="btn-primary" text="Refresh" />
-                              </children>
-                              <padding>
-                                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                              </padding>
-                           </VBox>
+                           </HBox>
+                            <TableView fx:id="Menu_table" VBox.vgrow="ALWAYS">
+                                <placeholder>
+                                    <Label text="Nincsenek megjeleníthető elemek..." />
+                                </placeholder>
+                            </TableView>
                         </children>
-                     </HBox>
+                     </VBox>
                   </children>
                </AnchorPane>
          </content>
@@ -49,41 +50,48 @@
            <content>
              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="content-wrapper">
                   <children>
-                     <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <VBox alignment="CENTER" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="30.0" styleClass="content-wrapper" VBox.vgrow="NEVER">
                               <children>
-                                 <TableView fx:id="Orders_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS">
-                                     <placeholder>
-                                         <Label text="Nincsenek megjeleníthető elemek..." />
-                                     </placeholder>
-                                 </TableView>
-                                 <TableView fx:id="Orderitem_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS">
-                                     <placeholder>
-                                         <Label text="Nincsenek megjeleníthető elemek..." />
-                                     </placeholder>
-                                 </TableView>
+                                 <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="NEVER">
+                                    <children>
+                                       <Label styleClass="form-label" text="RENDELÉS-MŰVELETEK" />
+                                       <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
+                                          <children>
+                                             <Button mnemonicParsing="false" onAction="#updateorders" styleClass="btn-primary" text="Újratöltés" />
+                                             <Button fx:id="order_delete" mnemonicParsing="false" onAction="#deleteSelectedOrder" styleClass="btn-primary" text="Törlés" />
+                                             <Button fx:id="order_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
+                                 <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                       <Label styleClass="form-label" text="RENDELÉS TÉTEL-MŰVELETEK" />
+                                       <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
+                                          <children>
+                                             <Button fx:id="orderitem_delete" mnemonicParsing="false" onAction="#deleteSelectedOrderItem" styleClass="btn-primary" text="Törlés" />
+                                             <Button fx:id="orderitem_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                             <Button fx:id="orderitem_add" mnemonicParsing="false" onAction="#addOrderItem" styleClass="btn-primary" text="Új Tétel" />
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
                               </children>
-                           </VBox>
-                           <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
-                              <children>
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedOrder" styleClass="btn-primary" text="Törlés" />
-                                 <Button mnemonicParsing="false" onAction="#updateorders" styleClass="btn-primary" text="Refresh" />
-                                 <Button fx:id="order_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedOrderItem" styleClass="btn-primary" text="Törlés">
-                                    <VBox.margin>
-                                       <Insets top="150.0" />
-                                    </VBox.margin>
-                                 </Button>
-                                 <Button fx:id="orderitem_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#addOrderItem" styleClass="btn-primary" text="Hozzáadás" />
-                              </children>
-                              <padding>
-                                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                              </padding>
-                           </VBox>
+                           </HBox>
+                           <TableView fx:id="Orders_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS">
+                               <placeholder>
+                                   <Label text="Nincsenek megjeleníthető elemek..." />
+                               </placeholder>
+                           </TableView>
+                           <TableView fx:id="Orderitem_table" prefHeight="230.0" prefWidth="772.0" VBox.vgrow="ALWAYS">
+                               <placeholder>
+                                   <Label text="Nincsenek megjeleníthető elemek..." />
+                               </placeholder>
+                           </TableView>
                         </children>
-                     </HBox>
+                     </VBox>
                   </children>
                </AnchorPane>
            </content>
@@ -92,25 +100,31 @@
             <content>
                <AnchorPane styleClass="content-wrapper">
                   <children>
-                     <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <VBox spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <TableView fx:id="User_table" HBox.hgrow="ALWAYS">
+                           <HBox fillHeight="false" spacing="30.0" styleClass="content-wrapper" VBox.vgrow="NEVER">
+                              <children>
+                                 <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                       <Label styleClass="form-label" text="FELHASZNÁLÓ-MŰVELETEK" />
+                                       <HBox fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
+                                          <children>
+                                             <Button mnemonicParsing="false" onAction="#updateusers" styleClass="btn-primary" text="Újratöltés" />
+                                             <Button fx:id="user_delete" mnemonicParsing="false" onAction="#deleteSelectedUser" styleClass="btn-primary" text="Törlés" />
+                                             <Button fx:id="user_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                          </children>
+                                       </HBox>
+                                    </children>
+                                 </VBox>
+                              </children>
+                           </HBox>
+                           <TableView fx:id="User_table">
                                <placeholder>
                                    <Label text="Nincsenek megjeleníthető elemek..." />
                                </placeholder>
                            </TableView>
-                           <VBox maxHeight="1.7976931348623157E308" prefWidth="200.0" spacing="4.0">
-                              <children>
-                                 <Button mnemonicParsing="false" onAction="#deleteSelectedUser" styleClass="btn-primary" text="Törlés" />
-                                 <Button fx:id="user_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
-                                 <Button mnemonicParsing="false" onAction="#updateusers" styleClass="btn-primary" text="Refresh" />
-                              </children>
-                              <padding>
-                                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                              </padding>
-                           </VBox>
                         </children>
-                     </HBox>
+                     </VBox>
                   </children>
                </AnchorPane>
             </content>

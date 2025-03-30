@@ -241,7 +241,7 @@ public class User implements ObservableList {
             HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(Api.getApi().getApiBase() + "/users/" + user.getId()))
+                    .uri(new URI(Api.getApi().getApiBase() + "/users/" + user.id))
                     .header("Authorization", "Bearer " + Authentication.getToken())
                     .DELETE()
                     .build();

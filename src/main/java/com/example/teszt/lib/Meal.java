@@ -17,7 +17,7 @@ public class Meal implements ObservableList {
     private boolean is_error;
     private String name;
     private MealType type;
-    private Integer calories;
+    public Integer calories;
     private String description;
     public Integer id;
     private String image_url;
@@ -73,10 +73,10 @@ public class Meal implements ObservableList {
 
     public static MealType string_to_mealtype(String value) {
         return switch (value.toLowerCase()) {
-            case "food" -> MealType.FOOD;
-            case "menu" -> MealType.MENU;
-            case "beverage" -> MealType.BEVERAGE;
-            case "dessert" -> MealType.DESSERT;
+            case "food", "étel" -> MealType.FOOD;
+            case "menu", "menü" -> MealType.MENU;
+            case "beverage", "ital" -> MealType.BEVERAGE;
+            case "dessert", "dessuert" -> MealType.DESSERT;
             default -> throw new IllegalStateException("Váratlan MealType: " + value);
         };
     }
@@ -126,12 +126,21 @@ public class Meal implements ObservableList {
         LinkedHashMap<String, String> columns = new LinkedHashMap<>();
 
         columns.put("id", "Azonosító");
-        columns.put("type", "Típus");
+        columns.put("display_type", "Típus");
         columns.put("name", "Név");
         columns.put("display_price", "Ár");
         columns.put("calories", "Kalória");
 
         return columns;
+    }
+
+    public String getDisplay_type() {
+        return switch (type) {
+            case FOOD -> "Étel";
+            case BEVERAGE -> "Ital";
+            case MENU -> "Menü";
+            case DESSERT -> "Desszert";
+        };
     }
 
     @Override
@@ -305,7 +314,7 @@ public class Meal implements ObservableList {
             HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(Api.getApi().getApiBase() + "/meals/" + meal.getId()))
+                    .uri(new URI(Api.getApi().getApiBase() + "/meals/" + meal.id))
                     .header("Authorization", "Bearer " + Authentication.getToken())
                     .DELETE()
                     .build();

@@ -249,7 +249,7 @@ public class Order implements ObservableList {
             HttpClient client = HttpClient.newHttpClient();
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI(Api.getApi().getApiBase() + "/orders/" + order.getId()))
+                    .uri(new URI(Api.getApi().getApiBase() + "/orders/" + order.id))
                     .header("Authorization", "Bearer " + Authentication.getToken())
                     .DELETE()
                     .build();
