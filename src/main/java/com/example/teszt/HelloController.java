@@ -3,6 +3,7 @@ package com.example.teszt;
 import com.example.teszt.lib.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -486,5 +487,33 @@ public class HelloController implements Initializable {
         alert.setTitle("Rólunk");
         alert.setHeaderText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    void addOrderItem(ActionEvent event) {
+        Order selectedOrder = Orders_table.getSelectionModel().getSelectedItem();
+        if (selectedOrder == null) {
+            return;
+        }
+
+        try {
+            AddOrderItemWindowController.setSelectedOrder(selectedOrder);
+            AddOrderItemWindowController.setMeals(fetch_meals());
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/AddOrderItemWindow.fxml"));
+            Parent root = loader.load();
+
+            com.example.teszt.AddOrderItemWindowController controller = loader.getController();
+            controller.setMainController(this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Add item");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Api_error e) {
+            showLoginError(e.error);
+        }
     }
 }

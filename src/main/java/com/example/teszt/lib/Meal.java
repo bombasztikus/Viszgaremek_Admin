@@ -83,7 +83,7 @@ public class Meal implements ObservableList {
 
     @Override
     public String toString() {
-        return "Meal(id: " + this.id + " name: " + this.name + ")";
+        return "(" + this.getDisplay_price() + "/db.) " + this.name;
     }
 
     public String getName() {

@@ -57,4 +57,37 @@ public class OrderItemRequest {
 
         return null;
     }
+
+    public static void create(int quantity, int meal_id, int order_id) throws Api_error {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+
+            var body = new HashMap<String, Integer>();
+            body.put("quantity", quantity);
+            body.put("id", meal_id);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String requestBody = objectMapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(body);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(Api.getApi().getApiBase()+"/orders/" + order_id + "/items"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization","Bearer " +  Authentication.getToken())
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            ObjectMapper mapper = new ObjectMapper();
+            HashMap responseMap = mapper.readValue(response.body(), HashMap.class);
+
+            if (responseMap.containsKey("is_error") && (Boolean) responseMap.get("is_error")) {
+                throw Api_error.from_json(responseMap);
+            }
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane prefHeight="138.0" prefWidth="227.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.AddOrderItemWindowController">
+    <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
+    <Label text="Darab:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField fx:id="quantityField" promptText="Szám" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Button defaultButton="true" onAction="#handleOrderItemAddition" text="Hozzáadás" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   <Label text="Termék:" GridPane.rowIndex="1" />
+   <ChoiceBox fx:id="mealSelection" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>
