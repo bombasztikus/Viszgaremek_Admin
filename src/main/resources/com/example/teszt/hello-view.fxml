@@ -123,7 +123,7 @@
                         <children>
                            <VBox VBox.vgrow="NEVER">
                               <children>
-                                 <Label styleClass="heading" text="Erről az alkalamzásról" VBox.vgrow="ALWAYS" />
+                                 <Label styleClass="heading" text="Erről az alkalmazásról" VBox.vgrow="ALWAYS" />
                                  <Label text="Ez az alkalmazás a 2025-ös &quot;Éttermi Rendelő Rendszer&quot; c. szakmai vizsgaremekünk részét képezi." />
                                  <Label text="A forráskód megtekinthető GitHub-on, a  https://github.com/creppzguy/Viszgaremek_Admin címen." />
                                  <Label text="A projekthez tartozó webes felület elérhető a https://vizsgaremek.halaszbendeguz.hu oldalon." />

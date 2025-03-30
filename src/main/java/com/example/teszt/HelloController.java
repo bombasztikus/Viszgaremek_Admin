@@ -92,7 +92,19 @@ public class HelloController implements Initializable {
                 }
             }
         });
+
+        configureTable(Menu_table);
+        configureTable(User_table);
+        configureTable(Orders_table);
+        configureTable(Orderitem_table);
     }
+
+    private void configureTable(TableView<?> table) {
+        table.getColumns().forEach(column -> column.setReorderable(false));
+        table.setSortPolicy(x -> false);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
     @FXML
     public void updatemeals(){
         try {
@@ -132,7 +144,7 @@ public class HelloController implements Initializable {
                 return;
             }
 
-            selected_orderitems = fetch_order_items(Orders_table.getSelectionModel().getSelectedItem().getId());
+            selected_orderitems = fetch_order_items(Orders_table.getSelectionModel().getSelectedItem().id);
 
             if (Orderitem_table != null) {
                 Orderitem_table.getColumns().clear();

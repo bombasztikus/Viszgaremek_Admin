@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Orderitem {
     public Integer meal_id;
@@ -51,11 +52,11 @@ public class Orderitem {
     }
 
     public String getMeal_id() {
-        return "#" + meal_id;
+        return "# " + meal_id;
     }
 
     public String getOrder_id() {
-        return "#" + order_id;
+        return "# " + order_id;
     }
 
     public String getQuantity() {
@@ -88,10 +89,9 @@ public class Orderitem {
         );
     }
 
-    public static HashMap<String, String> getTableColums() {
-        HashMap<String, String> columns = new HashMap<>();
+    public static LinkedHashMap<String, String> getTableColums() {
+        LinkedHashMap<String, String> columns = new LinkedHashMap<>();
 
-        columns.put("meal_id", "Termék azonosító");
         columns.put("meal_name", "Terméknév");
         columns.put("quantity", "Darabszám");
         columns.put("meal_price", "Darabár");

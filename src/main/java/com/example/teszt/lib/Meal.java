@@ -19,7 +19,7 @@ public class Meal implements ObservableList {
     private MealType type;
     private Integer calories;
     private String description;
-    private Integer id;
+    public Integer id;
     private String image_url;
     private Integer price;
     private Integer stars;
@@ -94,8 +94,8 @@ public class Meal implements ObservableList {
         return type;
     }
 
-    public Integer getCalories() {
-        return calories;
+        public String getCalories() {
+        return calories + " kcal";
     }
 
     public String getDescription() {
@@ -106,8 +106,8 @@ public class Meal implements ObservableList {
         return price + " Ft";
     }
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return "# " + id;
     }
 
     public String getImage_url() {
@@ -122,16 +122,14 @@ public class Meal implements ObservableList {
         return stars;
     }
 
-    public static HashMap<String, String> getTableColums() {
-        HashMap<String, String> columns = new HashMap<>();
+    public static LinkedHashMap<String, String> getTableColums() {
+        LinkedHashMap<String, String> columns = new LinkedHashMap<>();
 
-        columns.put("name", "Név");
-        columns.put("type", "Típus");
-        columns.put("calories", "Kalória");
         columns.put("id", "Azonosító");
-        columns.put("image_url", "Kép URL");
-        columns.put("price", "Ár");
-        columns.put("stars", "Értékelés");
+        columns.put("type", "Típus");
+        columns.put("name", "Név");
+        columns.put("display_price", "Ár");
+        columns.put("calories", "Kalória");
 
         return columns;
     }

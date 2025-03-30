@@ -33,7 +33,7 @@ public class EditOrderWindowController  implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addressField.setText(selectedOrder.getAddress());
-        completecheck.setSelected(selectedOrder.getIs_completed());
+        completecheck.setSelected(selectedOrder.is_completed);
     }
 
     public static void setSelectedOrder(Order selectedOrder) {
@@ -51,7 +51,7 @@ public class EditOrderWindowController  implements Initializable {
 
         OrderRequest request = new OrderRequest(address, completed);
         try {
-            Order editOrder = request.orderedit(getSelectedOrder().getId());
+            Order editOrder = request.orderedit(getSelectedOrder().id);
             mainController.updateorders();
         } catch (Api_error e) {
             showLoginError(e.error);

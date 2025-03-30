@@ -43,7 +43,7 @@ public class AddOrderItemWindowController implements Initializable {
     void handleOrderItemAddition(ActionEvent event) {
         int quantity = Integer.parseInt(quantityField.getText());
         try {
-            OrderItemRequest.create(quantity, mealSelection.getSelectionModel().getSelectedItem().getId(), selectedOrder.getId());
+            OrderItemRequest.create(quantity, mealSelection.getSelectionModel().getSelectedItem().id, selectedOrder.id);
             mainController.updateorderitems();
         } catch (Api_error e) {
             showAPIExceptionModal(e.error);

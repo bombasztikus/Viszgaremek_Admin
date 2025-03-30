@@ -45,12 +45,12 @@ public class EditUserWindowController implements Initializable {
     private void handleEditMeal() {
         String full_name = nameField.getText();
         String email = emailField.getText();
-        Boolean worker = getSelectedUser().getId() == 1 ? true : workercheck.isSelected();
+        Boolean worker = getSelectedUser().id == 1 ? true : workercheck.isSelected();
 
         //if (!name.isEmpty() && )
         UserRequest request = new UserRequest(full_name, email, worker);
         try {
-            User newUser = request.useredit(selectedUser.getId());
+            User newUser = request.useredit(selectedUser.id);
             mainController.updateusers();
             System.out.println(newUser);
         } catch (Api_error e) {
@@ -66,8 +66,8 @@ public class EditUserWindowController implements Initializable {
         if (selectedUser != null) {
             nameField.setText(selectedUser.getName());
             emailField.setText(selectedUser.getEmail());
-            workercheck.setSelected(selectedUser.getIs_employee());
-            workercheck.setDisable(selectedUser.getId() == 1);
+            workercheck.setSelected(selectedUser.is_employee);
+            workercheck.setDisable(selectedUser.id == 1);
         }
     }
 }

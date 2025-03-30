@@ -68,7 +68,7 @@ public class EditMealWindowController implements Initializable {
         //if (!name.isEmpty() && )
         MealRequest request = new MealRequest(name, price, calories,image_url, description, type);
         try {
-            Meal newMeal = request.mealedit(getSelectedMeal().getId());
+            Meal newMeal = request.mealedit(getSelectedMeal().id);
             mainController.updatemeals();
         } catch (Api_error e) {
             showLoginError(e.error);

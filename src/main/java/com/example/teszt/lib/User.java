@@ -14,10 +14,10 @@ import java.net.http.HttpResponse;
 import java.util.*;
 
 public class User implements ObservableList {
-    private Integer id;
+    public Integer id;
     private String email;
     private String full_name;
-    private Boolean is_employee;
+    public Boolean is_employee;
 
     public User(Integer id, String email, String full_name, Boolean is_employee) {
         this.id = id;
@@ -48,21 +48,21 @@ public class User implements ObservableList {
         return email;
     }
 
-    public Boolean getIs_employee() {
-        return is_employee;
+    public String getIs_employee() {
+        return is_employee ? "Alkalmazott" : "Ügyfél";
     }
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return "# " + id;
     }
 
-    public static HashMap<String, String> getTableColums() {
-        HashMap<String, String> columns = new HashMap<>();
+    public static LinkedHashMap<String, String> getTableColums() {
+        LinkedHashMap<String, String> columns = new LinkedHashMap<>();
 
-        columns.put("full_name", "Név");
-        columns.put("email", "Email");
         columns.put("id", "Azonosító");
-        columns.put("is_employee", "Dolgozó?");
+        columns.put("full_name", "Teljes Név");
+        columns.put("email", "Email Cím");
+        columns.put("is_employee", "Szerepkör");
 
         return columns;
     }

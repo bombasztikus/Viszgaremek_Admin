@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.util.*;
 
-public class Orders extends Meal implements ObservableList {
+public class Orders implements ObservableList {
     private Integer id;
     private Integer user_id;
     private String data_created;
@@ -31,8 +31,8 @@ public class Orders extends Meal implements ObservableList {
         );
     }
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return "# " + id;
     }
 
     public Integer getUser_id() {
@@ -51,8 +51,8 @@ public class Orders extends Meal implements ObservableList {
         return is_completed;
     }
 
-    public static HashMap<String, String> getTableColums() {
-        HashMap<String, String> columns = new HashMap<>();
+    public static LinkedHashMap<String, String> getTableColums() {
+        LinkedHashMap<String, String> columns = new LinkedHashMap<>();
 
         columns.put("id", "Integer");
         columns.put("user_id", "Integer");

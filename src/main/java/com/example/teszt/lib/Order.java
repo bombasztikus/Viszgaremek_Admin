@@ -11,14 +11,16 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Order implements ObservableList {
-    private Integer id;
+    public Integer id;
     private Integer user_id;
     private String date_created;
     private String address;
-    private Boolean is_completed;
+    public Boolean is_completed;
     private Boolean is_error;
 
     public Order(Integer id, Integer user_id, String date_created, String address, Boolean is_completed, Boolean is_error) {
@@ -46,12 +48,12 @@ public class Order implements ObservableList {
         );
     }
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return "# " + id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public String getUser_id() {
+        return "# " + user_id;
     }
 
     public String getDate_created() {
@@ -62,18 +64,30 @@ public class Order implements ObservableList {
         return address;
     }
 
-    public Boolean getIs_completed() {
-        return is_completed;
+    public String getIs_completed() {
+        return is_completed ? "Teljesítve" : "Folyamatban";
     }
 
-    public static HashMap<String, String> getTableColums() {
-        HashMap<String, String> columns = new HashMap<>();
+    public String getDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
+        // Parse the timestamp string into a ZonedDateTime object
+        ZonedDateTime parsedDate = ZonedDateTime.parse(date_created, formatter);
+
+        // Convert it to a human-readable format
+        DateTimeFormatter humanReadableFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd. HH:mm");
+
+        return parsedDate.format(humanReadableFormatter);
+    }
+
+    public static LinkedHashMap<String, String> getTableColums() {
+        LinkedHashMap<String, String> columns = new LinkedHashMap<>();
 
         columns.put("id", "Azonosító");
         columns.put("user_id", "Felhasználó");
-        columns.put("date_created", "Leadva");
+        columns.put("date", "Leadva");
         columns.put("address", "Átvételi Hely");
-        columns.put("is_completed", "Kész");
+        columns.put("is_completed", "Állapot");
 
         return columns;
     }
