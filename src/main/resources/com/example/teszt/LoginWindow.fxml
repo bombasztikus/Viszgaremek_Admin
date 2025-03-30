@@ -32,7 +32,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="emailField" prefWidth="368.0" promptText="valaki@pelda.hu" />
+                  <TextField fx:id="emailField" prefWidth="368.0" promptText="valaki@pelda.hu" styleClass="invalid" />
                   <Label fx:id="emailRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
                </children>
             </VBox>
@@ -43,7 +43,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="passwordField" prefWidth="368.0" promptText="Jelszó" />
+                  <PasswordField fx:id="passwordField" prefWidth="368.0" promptText="Jelszó" styleClass="invalid" />
                   <Label fx:id="passwordRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
                </children>
             </VBox>
@@ -54,7 +54,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="backendField" prefWidth="368.0" promptText="Backend URL" />
+                  <TextField fx:id="backendField" prefWidth="368.0" promptText="Backend URL" styleClass="invalid" />
                   <Label fx:id="backendRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
                </children>
             </VBox>
