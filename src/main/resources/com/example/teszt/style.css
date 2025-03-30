@@ -2,7 +2,7 @@
     -fx-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.login-window {
+.window-defaults {
     -fx-background-color: white;
 }
 
@@ -63,4 +63,65 @@
     -fx-text-fill: #dc3545;
     -fx-font-weight: 400;
     -fx-font-size: 14px;
+}
+
+.tab-header-area .tab-header-background {
+    -fx-background-color: white;
+}
+
+.tab-header-area {
+    -fx-padding: 8px;
+    -fx-spacing: 8px;
+}
+
+.tab {
+    -fx-padding: 8px 16px;
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    -fx-valignment: center;
+    -fx-background-radius: 800px;
+    -fx-border-radius: 800px;
+}
+
+.tab .tab-label {
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-graphic-text-gap: 8px;
+    -fx-graphic-size: 14px;
+}
+
+.tab:selected {
+    -fx-background-color: black;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
+.tab#productsTab .tab-label {
+    -fx-graphic: url("images/products-icon-dark.png");
+}
+
+.tab#productsTab:selected .tab-label {
+    -fx-graphic: url("images/products-icon-light.png");
+}
+
+.tab#ordersTab .tab-label {
+    -fx-graphic: url("images/orders-icon-dark.png");
+}
+
+.tab#ordersTab:selected .tab-label {
+    -fx-graphic: url("images/orders-icon-light.png");
+}
+
+.tab#usersTab .tab-label {
+    -fx-graphic: url("images/users-icon-dark.png");
+}
+
+.tab#usersTab:selected .tab-label {
+    -fx-graphic: url("images/users-icon-light.png");
 }

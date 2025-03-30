@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox alignment="TOP_CENTER" styleClass="login-window" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.LoginWindowController">
+<VBox alignment="TOP_CENTER" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.LoginWindowController">
    <children>
       <VBox alignment="TOP_CENTER" spacing="8.0" styleClass="login-form-header" VBox.vgrow="NEVER">
          <children>
