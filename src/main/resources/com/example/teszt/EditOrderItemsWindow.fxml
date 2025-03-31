@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="138.0" prefWidth="227.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.EditOrderItemsWindowController">
-    <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
-    <Label text="Darab:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-    <TextField fx:id="quantityField" promptText="Szám" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-    <Button fx:id="add_meal" defaultButton="true" onAction="#handleEditOrderItems" text="Szerkesztés" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
-    </rowConstraints>
-</GridPane>
+<VBox fillWidth="false" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.EditOrderItemsWindowController">
+   <children>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16.0" VBox.vgrow="NEVER">
+         <children>
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label styleClass="form-label" stylesheets="@style.css" text="DARABSZÁM" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="quantityField" prefWidth="368.0" promptText="Szám" styleClass="invalid" />
+                  <Label fx:id="quantityRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
+               </children>
+            </VBox>
+            <Button fx:id="edit_order" alignment="CENTER" defaultButton="true" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEditOrderItems" text="SZERKESZTÉS" VBox.vgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="btn-primary" />
+                  <String fx:value="edit-icon" />
+               </styleClass>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>

@@ -277,11 +277,12 @@ public class HelloController implements Initializable {
     }
 
     private void openEditOrderitemWindow() {
-        Orderitem selectedOrder = Orderitem_table.getSelectionModel().getSelectedItem();
-        if (selectedOrder == null) {
+        Orderitem selectedOrderItem = Orderitem_table.getSelectionModel().getSelectedItem();
+        if (selectedOrderItem == null) {
             return;
         }
-        EditOrderItemsWindowController.setSelectedOrder(selectedOrder);
+
+        EditOrderItemsWindowController.setSelectedOrderItem(selectedOrderItem);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/EditOrderItemsWindow.fxml"));
             Parent root = loader.load();
@@ -290,7 +291,9 @@ public class HelloController implements Initializable {
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Edit Order" + selectedOrder.getQuantity());
+            stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("\"" + selectedOrderItem.getMeal_name() + "\" tétel szerkesztése");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
