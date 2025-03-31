@@ -1,23 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="138.0" prefWidth="227.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.EditOrderWindowController">
-    <padding><Insets bottom="10" left="10" right="10" top="10" /></padding>
-    <Label text="Cím:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-    <TextField fx:id="addressField" promptText="Szöveg" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-    <Label text="Feldolgozva:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <Button fx:id="add_meal" defaultButton="true" onAction="#handleEditMeal" text="Szopj faszt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-   <CheckBox fx:id="completecheck" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-    </rowConstraints>
-</GridPane>
+<VBox fillWidth="false" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.EditOrderWindowController">
+   <children>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16.0" VBox.vgrow="NEVER">
+         <children>
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label styleClass="form-label" stylesheets="@style.css" text="ÁTVÉTELI HELY" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="addressField" prefWidth="368.0" promptText="Szöveg" styleClass="invalid" />
+                  <Label fx:id="addressRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="8.0">
+               <children>
+                  <Label styleClass="form-label" stylesheets="@style.css" text="ÁLLAPOT" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="completecheck" prefWidth="368.0">
+                     <styleClass>
+                        <String fx:value="text-field" />
+                        <String fx:value="invalid" />
+                     </styleClass>
+                  </ChoiceBox>
+                  <Label fx:id="statusRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
+               </children>
+            </VBox>
+            <Button fx:id="add_meal" alignment="CENTER" defaultButton="true" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEditMeal" text="SZERKESZTÉS" VBox.vgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="btn-primary" />
+                  <String fx:value="edit-icon" />
+               </styleClass>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+</VBox>
