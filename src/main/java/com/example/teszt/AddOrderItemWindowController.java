@@ -76,13 +76,12 @@ public class AddOrderItemWindowController implements Initializable {
     }
 
     private void fieldValueManager() {
-        mealSelection.setItems(FXCollections.observableArrayList(meals)); // Ensure MealType is used, not Strings
+        mealSelection.setItems(FXCollections.observableArrayList(meals));
 
         mealSelection.setConverter(new StringConverter<Meal>() {
-
             @Override
             public String toString(Meal meal) {
-                return meal.toString();
+                return meal == null ? "" : meal.toString();
             }
 
             @Override
@@ -116,16 +115,14 @@ public class AddOrderItemWindowController implements Initializable {
     }
 
     private void requiredFieldManager() {
-        nameRequiredLabel.managedProperty().bind(nameRequiredLabel.visibleProperty());
-        nameRequiredLabel.visibleProperty().bind(nameField.textProperty().isEmpty());
+        quantityRequiredLabel.managedProperty().bind(quantityRequiredLabel.visibleProperty());
+        quantityRequiredLabel.visibleProperty().bind(quantityField.textProperty().isEmpty());
 
-        typeRequiredLabel.managedProperty().bind(typeRequiredLabel.visibleProperty());
-        typeRequiredLabel.visibleProperty().bind(typeField.valueProperty().isNull());
+        mealSelectionRequiredLabel.managedProperty().bind(mealSelectionRequiredLabel.visibleProperty());
+        mealSelectionRequiredLabel.visibleProperty().bind(mealSelection.valueProperty().isNull());
 
         List<TextField> fields = new ArrayList<>();
-        fields.add(nameField);
-        fields.add(caloriesField);
-        fields.add(priceField);
+        fields.add(quantityField);
 
         for (TextField field : fields) {
             invalidFieldClassManager(field, field.getText());
@@ -135,9 +132,9 @@ public class AddOrderItemWindowController implements Initializable {
             });
         }
 
-        invalidChoiceClassManager(typeField, typeField.getValue());
-        typeField.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
-            invalidChoiceClassManager(typeField, newValue.getSelectedItem());
+        invalidChoiceClassManager(mealSelection, mealSelection.getValue());
+        mealSelection.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
+            invalidChoiceClassManager(mealSelection, newValue.getSelectedItem());
         });
     }
 
@@ -171,7 +168,7 @@ public class AddOrderItemWindowController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Probléma adódott");
         alert.setContentText(message);
-        alert.setHeaderText("Probléma adódott a termék hozzáadása közben");
+        alert.setHeaderText("Probléma adódott a tétel hozzáadása közben");
         alert.showAndWait();
     }
 }
