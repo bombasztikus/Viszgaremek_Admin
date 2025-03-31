@@ -266,7 +266,9 @@ public class HelloController implements Initializable {
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Edit Order" + selectedOrder.getId());
+            stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle(selectedOrder.getId() + " számú rendelés szerkesztése");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

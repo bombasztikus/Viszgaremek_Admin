@@ -28,10 +28,7 @@ public class EditOrderWindowController  implements Initializable {
     private Label addressRequiredLabel;
 
     @FXML
-    private ChoiceBox<String> status;
-
-    @FXML
-    private Label statusRequiredLabel;
+    private CheckBox completecheck;
 
     private HelloController mainController;
 
@@ -41,6 +38,9 @@ public class EditOrderWindowController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addressField.setText(selectedOrder.getAddress());
         completecheck.setSelected(selectedOrder.is_completed);
+
+        buttonDisableManager();
+        requiredFieldManager();
     }
 
     public static void setSelectedOrder(Order selectedOrder) {
@@ -53,12 +53,13 @@ public class EditOrderWindowController  implements Initializable {
 
     @FXML
     void handleEditMeal(ActionEvent event) {
-        String address = addressField.getText();
-        boolean completed = completecheck.isSelected();
+        OrderRequest request = new OrderRequest(
+                addressField.getText(),
+                completecheck.isSelected()
+        );
 
-        OrderRequest request = new OrderRequest(address, completed);
         try {
-            Order editOrder = request.orderedit(getSelectedOrder().id);
+            request.orderedit(getSelectedOrder().id);
             mainController.updateorders();
         } catch (Api_error e) {
             showApiExceptionPopUp(e.error);
@@ -72,64 +73,16 @@ public class EditOrderWindowController  implements Initializable {
         this.mainController = mainController;
     }
 
-    private void fieldValueManager() {
-        s.setItems(FXCollections.observableArrayList(MealType.values())); // Ensure MealType is used, not Strings
-
-        typeField.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(MealType mealType) {
-                if (mealType == null) return "";
-                return switch (mealType) {
-                    case FOOD -> "Étel";
-                    case BEVERAGE -> "Ital";
-                    case MENU -> "Menü";
-                    case DESSERT -> "Desszert";
-                };
-            }
-
-            @Override
-            public MealType fromString(String string) {
-                return switch (string) {
-                    case "Étel" -> MealType.FOOD;
-                    case "Ital" -> MealType.BEVERAGE;
-                    case "Menü" -> MealType.MENU;
-                    case "Desszert" -> MealType.DESSERT;
-                    default -> null;
-                };
-            }
-        });
-    }
-
     private void buttonDisableManager() {
-        add_meal.disableProperty().bind(Bindings.or(
-                Bindings.or(
-                        nameField.textProperty().isEmpty(),
-                        typeField.valueProperty().isNull()
-                ),
-                Bindings.or(
-                        caloriesField.textProperty().isEmpty(),
-                        priceField.textProperty().isEmpty()
-                )
-        ));
+        edit_order.disableProperty().bind(addressField.textProperty().isEmpty());
     }
 
     private void requiredFieldManager() {
-        nameRequiredLabel.managedProperty().bind(nameRequiredLabel.visibleProperty());
-        nameRequiredLabel.visibleProperty().bind(nameField.textProperty().isEmpty());
-
-        typeRequiredLabel.managedProperty().bind(typeRequiredLabel.visibleProperty());
-        typeRequiredLabel.visibleProperty().bind(typeField.valueProperty().isNull());
-
-        caloriesRequiredLabel.managedProperty().bind(caloriesRequiredLabel.visibleProperty());
-        caloriesRequiredLabel.visibleProperty().bind(caloriesField.textProperty().isEmpty());
-
-        priceRequiredLabel.managedProperty().bind(priceRequiredLabel.visibleProperty());
-        priceRequiredLabel.visibleProperty().bind(priceField.textProperty().isEmpty());
+        addressRequiredLabel.managedProperty().bind(addressRequiredLabel.visibleProperty());
+        addressRequiredLabel.visibleProperty().bind(addressField.textProperty().isEmpty());
 
         List<TextField> fields = new ArrayList<>();
-        fields.add(nameField);
-        fields.add(caloriesField);
-        fields.add(priceField);
+        fields.add(addressField);
 
         for (TextField field : fields) {
             invalidFieldClassManager(field, field.getText());
@@ -138,11 +91,6 @@ public class EditOrderWindowController  implements Initializable {
                 invalidFieldClassManager(field, newValue);
             });
         }
-
-        invalidChoiceClassManager(typeField, typeField.getValue());
-        typeField.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
-            invalidChoiceClassManager(typeField, newValue.getSelectedItem());
-        });
     }
 
     private void invalidFieldClassManager(TextField field, String value) {
@@ -158,24 +106,11 @@ public class EditOrderWindowController  implements Initializable {
         field.layout();
     }
 
-    private <T> void invalidChoiceClassManager(ChoiceBox<T> choices, T value) {
-        if (value != null) {
-            if (!choices.getStyleClass().contains("invalid")) {
-                choices.getStyleClass().add("invalid");
-            }
-        } else {
-            choices.getStyleClass().remove("invalid");
-        }
-
-        choices.applyCss();
-        choices.layout();
-    }
-
     private void showApiExceptionPopUp(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Probléma adódott");
         alert.setContentText(message);
-        alert.setHeaderText("Probléma adódott a termék hozzáadása közben");
+        alert.setHeaderText("Probléma adódott a rendelés módosítása közben");
         alert.showAndWait();
     }
 }

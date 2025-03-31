@@ -156,6 +156,7 @@
     -fx-font-size: 14px;
 }
 
+.check-box,
 .label {
     fx-text-fill: #212529bf;
 }
@@ -296,4 +297,27 @@
 .btn-primary.reload-icon,
 .btn-secondary:hover.reload-icon {
     -fx-graphic: url("images/reload-icon-light.png");
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-width: 4px;
+    -fx-border-color: black;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-color: black;
+}
+
+.check-box > .box > .mark {
+    -fx-background-color: black;
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+    -fx-shape: none;
+    -fx-background-insets: 0;
+}
+
+.check-box:selected > .box > .mark {
+  -fx-background-color: white;
+  -fx-background-image: url("images/checked.png");
 }
