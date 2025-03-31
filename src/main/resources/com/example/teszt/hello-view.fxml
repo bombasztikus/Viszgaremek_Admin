@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1200.0" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.HelloController">
+<VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1200.0" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.HelloController">
    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
      <tabs>
        <Tab id="productsTab" closable="false" text="TERMÉKEK">
          <content>
            <AnchorPane styleClass="content-wrapper">
                   <children>
-                     <VBox alignment="CENTER" spacing="16.0" styleClass="content-wrapper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <VBox alignment="CENTER" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="30.0" VBox.vgrow="NEVER">
+                           <HBox alignment="CENTER_LEFT" fillHeight="false" styleClass="action-bar" VBox.vgrow="NEVER">
                               <children>
-                                 <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                                 <VBox alignment="CENTER_LEFT" spacing="8.0" styleClass="actions" HBox.hgrow="ALWAYS">
                                     <children>
                                        <Label styleClass="form-label" text="TERMÉK-MŰVELETEK" />
                                        <HBox fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
                                           <children>
-                                             <Button mnemonicParsing="false" onAction="#updatemeals" styleClass="btn-primary" text="Újratöltés" />
-                                             <Button fx:id="delete_meal" mnemonicParsing="false" onAction="#deleteSelectedMeal" styleClass="btn-primary" text="Törlés" />
-                                             <Button fx:id="edit_button" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
-                                              <Button fx:id="add_button" mnemonicParsing="false" styleClass="btn-primary" text="Új Termék" />
+                                             <Button mnemonicParsing="false" onAction="#updatemeals" text="Újratöltés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="reload-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="delete_meal" mnemonicParsing="false" onAction="#deleteSelectedMeal" text="Törlés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="delete-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="edit_button" mnemonicParsing="false" text="Szerkesztés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="edit-icon" />
+                                                </styleClass></Button>
+                                              <Button fx:id="add_button" mnemonicParsing="false" text="Új Termék">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="create-icon" />
+                                                </styleClass></Button>
                                           </children>
                                        </HBox>
                                     </children>
@@ -52,28 +63,53 @@
                   <children>
                      <VBox alignment="CENTER" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="30.0" styleClass="content-wrapper" VBox.vgrow="NEVER">
+                           <HBox alignment="CENTER_LEFT" styleClass="action-bar" VBox.vgrow="NEVER">
                               <children>
-                                 <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="NEVER">
+                                 <VBox alignment="CENTER_LEFT" spacing="8.0" styleClass="actions" HBox.hgrow="NEVER">
                                     <children>
                                        <Label styleClass="form-label" text="RENDELÉS-MŰVELETEK" />
                                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
                                           <children>
-                                             <Button mnemonicParsing="false" onAction="#updateorders" styleClass="btn-primary" text="Újratöltés" />
-                                             <Button fx:id="order_delete" mnemonicParsing="false" onAction="#deleteSelectedOrder" styleClass="btn-primary" text="Törlés" />
-                                             <Button fx:id="order_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                             <Button mnemonicParsing="false" onAction="#updateorders" text="Újratöltés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="reload-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="order_delete" mnemonicParsing="false" onAction="#deleteSelectedOrder" text="Törlés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="delete-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="order_edit" mnemonicParsing="false" text="Szerkesztés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="edit-icon" />
+                                                </styleClass></Button>
                                           </children>
                                        </HBox>
                                     </children>
                                  </VBox>
-                                 <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                 <Separator orientation="VERTICAL" HBox.hgrow="ALWAYS" />
+                                 <VBox spacing="8.0" styleClass="actions" HBox.hgrow="ALWAYS">
                                     <children>
                                        <Label styleClass="form-label" text="RENDELÉS TÉTEL-MŰVELETEK" />
                                        <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
                                           <children>
-                                             <Button fx:id="orderitem_delete" mnemonicParsing="false" onAction="#deleteSelectedOrderItem" styleClass="btn-primary" text="Törlés" />
-                                             <Button fx:id="orderitem_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
-                                             <Button fx:id="orderitem_add" mnemonicParsing="false" onAction="#addOrderItem" styleClass="btn-primary" text="Új Tétel" />
+                                             <Button fx:id="orderitem_delete" mnemonicParsing="false" onAction="#deleteSelectedOrderItem" text="Törlés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="delete-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="orderitem_edit" mnemonicParsing="false" text="Szerkesztés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="edit-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="orderitem_add" mnemonicParsing="false" onAction="#addOrderItem" text="Új Tétel">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="create-icon" />
+                                                </styleClass></Button>
                                           </children>
                                        </HBox>
                                     </children>
@@ -102,16 +138,28 @@
                   <children>
                      <VBox spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
-                           <HBox fillHeight="false" spacing="30.0" styleClass="content-wrapper" VBox.vgrow="NEVER">
+                           <HBox fillHeight="false" styleClass="action-bar" VBox.vgrow="NEVER">
                               <children>
-                                 <VBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                                 <VBox alignment="CENTER_LEFT" spacing="8.0" styleClass="actions" HBox.hgrow="ALWAYS">
                                     <children>
                                        <Label styleClass="form-label" text="FELHASZNÁLÓ-MŰVELETEK" />
                                        <HBox fillHeight="false" spacing="8.0" VBox.vgrow="NEVER">
                                           <children>
-                                             <Button mnemonicParsing="false" onAction="#updateusers" styleClass="btn-primary" text="Újratöltés" />
-                                             <Button fx:id="user_delete" mnemonicParsing="false" onAction="#deleteSelectedUser" styleClass="btn-primary" text="Törlés" />
-                                             <Button fx:id="user_edit" mnemonicParsing="false" styleClass="btn-primary" text="Szerkesztés" />
+                                             <Button mnemonicParsing="false" onAction="#updateusers" text="Újratöltés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="reload-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="user_delete" mnemonicParsing="false" onAction="#deleteSelectedUser" text="Törlés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="delete-icon" />
+                                                </styleClass></Button>
+                                             <Button fx:id="user_edit" mnemonicParsing="false" text="Szerkesztés">
+                                                <styleClass>
+                                                   <String fx:value="btn-secondary" />
+                                                   <String fx:value="edit-icon" />
+                                                </styleClass></Button>
                                           </children>
                                        </HBox>
                                     </children>

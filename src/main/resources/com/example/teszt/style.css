@@ -53,6 +53,25 @@
     -fx-opacity: 0.65;
 }
 
+.btn-secondary {
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-font-weight: 700;
+    -fx-font-size: 16px;
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 800px;
+    -fx-border-color: black;
+    -fx-background-radius: 800px;
+    -fx-graphic-text-gap: 8px;
+    -fx-graphic-size: 14px;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
 .label-required {
     -fx-text-fill: #dc3545;
     -fx-font-weight: 400;
@@ -198,7 +217,7 @@
     -fx-border-color: lightgrey;
     -fx-border-width: 0;
     -fx-font-size: 16px;
-    -fx-padding: 8px;
+    -fx-padding: 16px;
 }
 
 .table-view > .virtual-flow > .scroll-bar:horizontal > .thumb,
@@ -220,4 +239,60 @@
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track,
 .table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
     -fx-background-color: transparent;
+}
+
+.action-bar {
+    -fx-border-width: 1px;
+    -fx-border-color: #f4f4f4;
+    -fx-border-radius: 10px;
+}
+
+.action-bar .actions {
+    -fx-padding: 8px;
+}
+
+.action-bar .separator {
+    -fx-padding: 0;
+}
+
+.action-bar .separator .line {
+    -fx-border-color: #f4f4f4;
+    -fx-shadow-highlight-color: transparent;
+    -fx-border-width: 0.5px;
+}
+
+.btn-secondary.delete-icon {
+    -fx-graphic: url("images/delete-icon-dark.png");
+}
+
+.btn-primary.delete-icon,
+.btn-secondary:hover.delete-icon {
+    -fx-graphic: url("images/delete-icon-light.png");
+}
+
+.btn-secondary.create-icon {
+    -fx-graphic: url("images/create-icon-dark.png");
+}
+
+.btn-primary.create-icon,
+.btn-secondary:hover.create-icon {
+    -fx-graphic: url("images/create-icon-light.png");
+}
+
+.btn-secondary.edit-icon {
+    -fx-graphic: url("images/edit-icon-dark.png");
+}
+
+.btn-primary.edit-icon,
+.btn-secondary:hover.edit-icon {
+    -fx-graphic: url("images/edit-icon-light.png");
+}
+
+.btn-secondary.reload-icon {
+    -fx-graphic: url("images/reload-icon-dark.png");
+}
+
+.btn-primary.reload-icon,
+.btn-secondary:hover.reload-icon {
+    -fx-graphic: url("images/reload-icon-light.png");
 }
