@@ -1,14 +1,19 @@
 package com.example.teszt;
 
 import com.example.teszt.lib.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EditUserWindowController implements Initializable {
@@ -17,10 +22,16 @@ public class EditUserWindowController implements Initializable {
     private TextField nameField;
 
     @FXML
+    private Label nameRequiredLabel;
+
+    @FXML
     private CheckBox workercheck;
 
     @FXML
     private TextField emailField;
+
+    @FXML
+    private Label emailRequiredLabel;
 
     @FXML
     private Button add_meal;
@@ -47,12 +58,10 @@ public class EditUserWindowController implements Initializable {
         String email = emailField.getText();
         Boolean worker = getSelectedUser().id == 1 ? true : workercheck.isSelected();
 
-        //if (!name.isEmpty() && )
         UserRequest request = new UserRequest(full_name, email, worker);
         try {
-            User newUser = request.useredit(selectedUser.id);
+            request.useredit(selectedUser.id);
             mainController.updateusers();
-            System.out.println(newUser);
         } catch (Api_error e) {
             System.out.println(e);
         }
@@ -69,5 +78,56 @@ public class EditUserWindowController implements Initializable {
             workercheck.setSelected(selectedUser.is_employee);
             workercheck.setDisable(selectedUser.id == 1);
         }
+
+        buttonDisableManager();
+        requiredFieldManager();
+    }
+
+    private void buttonDisableManager() {
+        add_meal.disableProperty().bind(Bindings.or(
+                nameField.textProperty().isEmpty(),
+                emailField.textProperty().isEmpty()
+        ));
+    }
+
+    private void requiredFieldManager() {
+        nameRequiredLabel.managedProperty().bind(nameRequiredLabel.visibleProperty());
+        nameRequiredLabel.visibleProperty().bind(nameField.textProperty().isEmpty());
+
+        emailRequiredLabel.managedProperty().bind(emailRequiredLabel.visibleProperty());
+        emailRequiredLabel.visibleProperty().bind(emailField.textProperty().isEmpty());
+
+        List<TextField> fields = new ArrayList<>();
+        fields.add(nameField);
+        fields.add(emailField);
+
+        for (TextField field : fields) {
+            invalidFieldClassManager(field, field.getText());
+
+            field.textProperty().addListener((observable, oldValue, newValue) -> {
+                invalidFieldClassManager(field, newValue);
+            });
+        }
+    }
+
+    private void invalidFieldClassManager(TextField field, String value) {
+        if (value != null && value.isEmpty()) {
+            if (!field.getStyleClass().contains("invalid")) {
+                field.getStyleClass().add("invalid");
+            }
+        } else {
+            field.getStyleClass().remove("invalid");
+        }
+
+        field.applyCss();
+        field.layout();
+    }
+
+    private void showApiExceptionPopUp(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Probléma adódott");
+        alert.setContentText(message);
+        alert.setHeaderText("Probléma adódott a felhasználó szerkesztése közben");
+        alert.showAndWait();
     }
 }

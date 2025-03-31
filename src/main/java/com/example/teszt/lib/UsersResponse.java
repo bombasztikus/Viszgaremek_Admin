@@ -15,7 +15,6 @@ public class UsersResponse {
     }
     static public UsersResponse from_json(HashMap json) {
         if ((Boolean) json.get("is_error")) {
-            System.out.println(json.toString());
             return null;
         }
         List<HashMap> items_raw= (List<HashMap>) json.get("items");
