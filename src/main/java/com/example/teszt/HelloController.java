@@ -244,7 +244,9 @@ public class HelloController implements Initializable {
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Edit " + selectedUser.getName());
+            stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("\"" + selectedUser.getName() + "\" szerkesztése");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -352,11 +354,6 @@ public class HelloController implements Initializable {
                 showLoginError(e.error);
             }
         }
-    }
-
-
-    public void addMealToTable(Meal meal) {
-        Menu_table.getItems().add(meal);
     }
 
     private List<Meal> fetch_meals() throws Api_error {
@@ -520,19 +517,9 @@ public class HelloController implements Initializable {
 
     private void showLoginError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Probléme de login");
-        alert.setHeaderText("Probleme");
+        alert.setTitle("Hiba");
+        alert.setHeaderText("Hiba történt");
         alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void aboutpage(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Ez a projekt a 2025-i vizsgaremek aw BKSZC Pogány Frigyes Technikumnak, " +
-                "Készítette: Halász Willhem Bendegúz, Kőszegi Tamás Attila, Simon Attila Tibor " +
-                "Github directory: https://github.com/bombasztikus/Vizsgaremek", ButtonType.OK);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        alert.setTitle("Rólunk");
-        alert.setHeaderText(message);
         alert.showAndWait();
     }
 
@@ -554,7 +541,9 @@ public class HelloController implements Initializable {
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Add item");
+            stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Új tétel");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
