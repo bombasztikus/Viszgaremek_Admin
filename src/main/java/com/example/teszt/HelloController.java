@@ -188,7 +188,7 @@ public class HelloController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/AddMealWindow.fxml"));
             Parent root = loader.load();
 
-            com.example.teszt.AddMealWindowController controller = loader.getController();
+            AddMealWindowController controller = loader.getController();
             controller.setMainController(this);
 
             Stage stage = new Stage();
@@ -214,11 +214,13 @@ public class HelloController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/teszt/EditMealWindow.fxml"));
             Parent root = loader.load();
 
-            com.example.teszt.EditMealWindowController controller = loader.getController();
+            EditMealWindowController controller = loader.getController();
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Edit " + selectedMeal.getName());
+            stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("\"" + selectedMeal.getName() + "\" szerkesztése");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

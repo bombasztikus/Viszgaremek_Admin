@@ -38,15 +38,24 @@
     -fx-border-color: #dc3545 !important;
 }
 
+.btn-primary,
+.btn-secondary {
+    -fx-graphic-text-gap: 8px;
+    -fx-graphic-size: 14px;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-text-alignment: center;
+    -fx-border-radius: 800px;
+    -fx-background-radius: 800px;
+    -fx-border-width: 1px;
+    -fx-border-color: black;
+
+}
+
 .btn-primary {
     -fx-text-fill: white;
     -fx-text-alignment: center;
-    -fx-font-weight: 700;
-    -fx-font-size: 16px;
     -fx-background-color: #212529;
-    -fx-border-width: 0;
-    -fx-border-radius: 800px;
-    -fx-background-radius: 800px;
 }
 
 .btn-primary:disabled {
@@ -56,15 +65,7 @@
 .btn-secondary {
     -fx-text-fill: black;
     -fx-text-alignment: center;
-    -fx-font-weight: 700;
-    -fx-font-size: 16px;
     -fx-background-color: white;
-    -fx-border-width: 1px;
-    -fx-border-radius: 800px;
-    -fx-border-color: black;
-    -fx-background-radius: 800px;
-    -fx-graphic-text-gap: 8px;
-    -fx-graphic-size: 14px;
 }
 
 .btn-secondary:hover {

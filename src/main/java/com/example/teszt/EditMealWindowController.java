@@ -4,19 +4,19 @@ import com.example.teszt.lib.Api_error;
 import com.example.teszt.lib.Meal;
 import com.example.teszt.lib.MealRequest;
 import com.example.teszt.lib.MealType;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EditMealWindowController implements Initializable {
@@ -25,10 +25,19 @@ public class EditMealWindowController implements Initializable {
     private TextField nameField;
 
     @FXML
+    private Label nameRequiredLabel;
+
+    @FXML
     private ChoiceBox<MealType> typeField;
 
     @FXML
+    private Label typeRequiredLabel;
+
+    @FXML
     private TextField caloriesField;
+
+    @FXML
+    private Label caloriesRequiredLabel;
 
     @FXML
     private Button add_meal;
@@ -38,6 +47,9 @@ public class EditMealWindowController implements Initializable {
 
     @FXML
     private TextField priceField;
+
+    @FXML
+    private Label priceRequiredLabel;
 
     @FXML
     private TextField imageField;
@@ -73,7 +85,7 @@ public class EditMealWindowController implements Initializable {
             Meal newMeal = request.mealedit(getSelectedMeal().id);
             mainController.updatemeals();
         } catch (Api_error e) {
-            showLoginError(e.error);
+            showApiExceptionPopUp(e.error);
         }
 
         Stage stage = (Stage) nameField.getScene().getWindow();
@@ -82,35 +94,19 @@ public class EditMealWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (selectedMeal != null) {
-            nameField.setText(selectedMeal.getName());
-            typeField.setValue(selectedMeal.getType());
-            caloriesField.setText(String.valueOf(selectedMeal.calories));
-            priceField.setText(String.valueOf(selectedMeal.getPrice()));
-            imageField.setText(selectedMeal.getImage_url());
-            descriptionField.setText(selectedMeal.getDescription());
-        }
+        nameField.setText(selectedMeal.getName());
+        typeField.setValue(selectedMeal.getType());
+        caloriesField.setText(String.valueOf(selectedMeal.calories));
+        descriptionField.setText(selectedMeal.getDescription());
+        priceField.setText(String.valueOf(selectedMeal.getPrice()));
+        imageField.setText(selectedMeal.getImage_url());
 
-        priceField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    priceField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+        fieldValueManager();
+        buttonDisableManager();
+        requiredFieldManager();
+    }
 
-        caloriesField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    caloriesField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-
+    private void fieldValueManager() {
         typeField.setItems(FXCollections.observableArrayList(MealType.values())); // Ensure MealType is used, not Strings
 
         typeField.setConverter(new StringConverter<>() {
@@ -132,17 +128,108 @@ public class EditMealWindowController implements Initializable {
                     case "Ital" -> MealType.BEVERAGE;
                     case "Menü" -> MealType.MENU;
                     case "Desszert" -> MealType.DESSERT;
-                    default -> null; // This case is unlikely to be used
+                    default -> null;
                 };
+            }
+        });
+
+        priceField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    priceField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        caloriesField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    caloriesField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
             }
         });
     }
 
-    private void showLoginError(String message) {
+    private void buttonDisableManager() {
+        add_meal.disableProperty().bind(Bindings.or(
+                Bindings.or(
+                        nameField.textProperty().isEmpty(),
+                        typeField.valueProperty().isNull()
+                ),
+                Bindings.or(
+                        caloriesField.textProperty().isEmpty(),
+                        priceField.textProperty().isEmpty()
+                )
+        ));
+    }
+
+    private void requiredFieldManager() {
+        nameRequiredLabel.managedProperty().bind(nameRequiredLabel.visibleProperty());
+        nameRequiredLabel.visibleProperty().bind(nameField.textProperty().isEmpty());
+
+        typeRequiredLabel.managedProperty().bind(typeRequiredLabel.visibleProperty());
+        typeRequiredLabel.visibleProperty().bind(typeField.valueProperty().isNull());
+
+        caloriesRequiredLabel.managedProperty().bind(caloriesRequiredLabel.visibleProperty());
+        caloriesRequiredLabel.visibleProperty().bind(caloriesField.textProperty().isEmpty());
+
+        priceRequiredLabel.managedProperty().bind(priceRequiredLabel.visibleProperty());
+        priceRequiredLabel.visibleProperty().bind(priceField.textProperty().isEmpty());
+
+        List<TextField> fields = new ArrayList<>();
+        fields.add(nameField);
+        fields.add(caloriesField);
+        fields.add(priceField);
+
+        for (TextField field : fields) {
+            invalidFieldClassManager(field, field.getText());
+
+            field.textProperty().addListener((observable, oldValue, newValue) -> {
+                invalidFieldClassManager(field, newValue);
+            });
+        }
+
+        invalidChoiceClassManager(typeField, typeField.getValue());
+        typeField.selectionModelProperty().addListener((observable, oldValue, newValue) -> {
+            invalidChoiceClassManager(typeField, newValue.getSelectedItem());
+        });
+    }
+
+    private void invalidFieldClassManager(TextField field, String value) {
+        if (value != null && value.isEmpty()) {
+            if (!field.getStyleClass().contains("invalid")) {
+                field.getStyleClass().add("invalid");
+            }
+        } else {
+            field.getStyleClass().remove("invalid");
+        }
+
+        field.applyCss();
+        field.layout();
+    }
+
+    private <T> void invalidChoiceClassManager(ChoiceBox<T> choices, T value) {
+        if (value != null) {
+            if (!choices.getStyleClass().contains("invalid")) {
+                choices.getStyleClass().add("invalid");
+            }
+        } else {
+            choices.getStyleClass().remove("invalid");
+        }
+
+        choices.applyCss();
+        choices.layout();
+    }
+
+    private void showApiExceptionPopUp(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Zaba probléma");
-        alert.setHeaderText("Zaba gond");
+        alert.setTitle("Probléma adódott");
         alert.setContentText(message);
+        alert.setHeaderText("Probléma adódott a termék hozzáadása közben");
         alert.showAndWait();
     }
 }
