@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -191,7 +192,9 @@ public class HelloController implements Initializable {
             controller.setMainController(this);
 
             Stage stage = new Stage();
-            stage.setTitle("Adj hozzá új kaját");
+            stage.setResizable(false);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Termék hozzáadása");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

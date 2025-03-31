@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.AddMealWindowController">
+<VBox fillWidth="false" styleClass="window-defaults" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teszt.AddMealWindowController">
    <children>
-      <VBox alignment="CENTER_RIGHT" spacing="16.0" VBox.vgrow="NEVER">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="16.0" VBox.vgrow="NEVER">
          <children>
             <VBox alignment="CENTER_LEFT" spacing="8.0">
                <children>
@@ -47,7 +47,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="priceField" prefWidth="368.0" promptText="Szöveg" styleClass="invalid" text="Szám" />
+                  <TextField fx:id="priceField" prefWidth="368.0" promptText="Szám" styleClass="invalid" />
                   <Label fx:id="priceRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
                </children>
             </VBox>
@@ -58,7 +58,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="caloriesField" prefWidth="368.0" promptText="Szöveg" styleClass="invalid" text="Szám" />
+                  <TextField fx:id="caloriesField" prefWidth="368.0" promptText="Szám" styleClass="invalid" />
                   <Label fx:id="caloriesRequiredLabel" styleClass="label-required" text="A mező kitöltése kötelező" />
                </children>
             </VBox>
@@ -69,7 +69,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="descriptionField" prefWidth="368.0" promptText="Szöveg" text="Szöveg" />
+                  <TextField fx:id="descriptionField" prefWidth="368.0" promptText="Szöveg" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" spacing="8.0">
@@ -79,10 +79,10 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="imageField" prefWidth="368.0" promptText="Szöveg" text="Szöveg" />
+                  <TextField fx:id="imageField" prefWidth="368.0" promptText="Szöveg" />
                </children>
             </VBox>
-            <Button fx:id="add_meal" alignment="CENTER_RIGHT" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#handleAddMeal" text="LÉTREHOZÁS" VBox.vgrow="ALWAYS">
+            <Button fx:id="add_meal" alignment="CENTER" defaultButton="true" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddMeal" text="LÉTREHOZÁS" VBox.vgrow="ALWAYS">
                <styleClass>
                   <String fx:value="btn-primary" />
                   <String fx:value="create-icon" />
